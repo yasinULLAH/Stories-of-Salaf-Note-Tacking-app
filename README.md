@@ -23,18 +23,18 @@ Salaf Stories Archive is a single-HTML file application that helps you collect, 
 ## 📸 Screenshots | اسکرین شاٹس
 
 <div align="center">
-  <img src="./pic (2).png" alt="Story Detail View" width="45%" style="display: inline-block; margin-right: 5px; margin-bottom: 5px; max-width: 45%;">
-  <img src="./pic (3).png" alt="Adding a New Story" width="45%" style="display: inline-block; margin-bottom: 5px; max-width: 45%;">
+  <img src="./pic (1).png" alt="Story Detail View" width="45%" style="display: inline-block; margin-right: 5px; margin-bottom: 5px; max-width: 45%;">
+  <img src="./pic (2).png" alt="Adding a New Story" width="45%" style="display: inline-block; margin-bottom: 5px; max-width: 45%;">
 </div>
 <div align="center">
   <img src="./pic (3).png" alt="Collections View" width="45%" style="display: inline-block; margin-right: 5px; margin-bottom: 5px; max-width: 45%;">
 </div>
 <div align="center">
-  <img src="./pic (4).png" alt="Story Detail View" width="45%" style="display: inline-block; margin-right: 5px; margin-bottom: 5px; max-width: 45%;">
-  <img src="./pic (5).png" alt="Adding a New Story" width="45%" style="display: inline-block; margin-bottom: 5px; max-width: 45%;">
+  <img src="./pic (5).png" alt="Story Detail View" width="45%" style="display: inline-block; margin-right: 5px; margin-bottom: 5px; max-width: 45%;">
+  <img src="./pic (6).png" alt="Adding a New Story" width="45%" style="display: inline-block; margin-bottom: 5px; max-width: 45%;">
 </div>
 <div align="center">
-  <img src="./pic (6).png" alt="Collections View" width="45%" style="display: inline-block; margin-right: 5px; margin-bottom: 5px; max-width: 45%;">
+  <img src="./pic (4).png" alt="Collections View" width="45%" style="display: inline-block; margin-right: 5px; margin-bottom: 5px; max-width: 45%;">
 </div>
 ## 🚀 Getting Started | شروع کرنا
 
