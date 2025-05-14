@@ -1,0 +1,2304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salaf Stories Archive</title>
+  <style>
+    :root {
+      --primary: #8B5A2B;
+      --secondary: #4A3B27;
+      --accent: #D4AF37;
+      --bg-light: #F5F0E1;
+      --bg-dark: #1F1A14;
+      --text-light: #F5F0E1;
+      --text-dark: #2D2016;
+      --shadow: rgba(0, 0, 0, 0.2);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+    }
+    
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      transition: var(--transition);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+    
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: var(--text-light);
+      padding: 1rem;
+      box-shadow: 0 2px 5px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.1;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    }
+    
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-icon {
+      margin-right: 0.5rem;
+      font-size: 1.8rem;
+    }
+    
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      padding: 0.5rem;
+      font-size: 1rem;
+      transition: var(--transition);
+      opacity: 0.8;
+    }
+    
+    .nav-btn:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    
+    .nav-btn.active {
+      opacity: 1;
+      border-bottom: 2px solid var(--accent);
+    }
+    
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    
+    main {
+      flex: 1;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .view {
+      display: none;
+    }
+    
+    .view.active {
+      display: block;
+    }
+    
+    .section-title {
+      margin: 1rem 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent);
+      color: var(--primary);
+      font-size: 1.5rem;
+      position: relative;
+    }
+    
+    .dark-mode .section-title {
+      color: var(--accent);
+    }
+    
+    .story-of-day {
+      background: linear-gradient(135deg, rgba(139, 90, 43, 0.1), rgba(212, 175, 55, 0.1));
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      box-shadow: 0 4px 10px var(--shadow);
+      border-left: 4px solid var(--accent);
+    }
+    
+    .daily-label {
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      background-color: var(--accent);
+      color: var(--bg-dark);
+      padding: 0.2rem 0.7rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .search-bar {
+      display: flex;
+      margin: 1rem 0 2rem;
+      position: relative;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 0.8rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      font-size: 1rem;
+      transition: var(--transition);
+      background-color: rgba(255, 255, 255, 0.8);
+    }
+    
+    .dark-mode .search-input {
+      background-color: rgba(45, 32, 22, 0.8);
+      color: var(--text-light);
+      border-color: #444;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    
+    .advanced-search {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    
+    .dark-mode .advanced-search {
+      color: var(--accent);
+    }
+    
+    .stories-grid, .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .story-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--shadow);
+      padding: 1.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-top: 3px solid var(--primary);
+    }
+    
+    .dark-mode .story-card {
+      background-color: rgba(45, 32, 22, 0.8);
+      border-top: 3px solid var(--accent);
+    }
+    
+    .story-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px var(--shadow);
+    }
+    
+    .story-card h3 {
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    
+    .dark-mode .story-card h3 {
+      color: var(--accent);
+    }
+    
+    .figures {
+      font-style: italic;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .dark-mode .figures {
+      color: #bbb;
+    }
+    
+    .story-preview {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      max-height: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .tag {
+      background-color: rgba(139, 90, 43, 0.1);
+      color: var(--primary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+    }
+    
+    .dark-mode .tag {
+      background-color: rgba(212, 175, 55, 0.2);
+      color: var(--accent);
+    }
+    
+    .add-story-btn, .add-collection-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: var(--accent);
+      color: var(--bg-dark);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px var(--shadow);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .add-story-btn:hover, .add-collection-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background-color: var(--bg-light);
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      width: 90%;
+      max-width: 700px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .dark-mode .modal-content {
+      background-color: var(--bg-dark);
+    }
+    
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-dark);
+    }
+    
+    .dark-mode .close-modal {
+      color: var(--text-light);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      background-color: white;
+    }
+    
+    .dark-mode .form-input, 
+    .dark-mode .form-textarea, 
+    .dark-mode .form-select {
+      background-color: rgba(45, 32, 22, 0.8);
+      color: var(--text-light);
+      border-color: #444;
+    }
+    
+    .form-textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+    
+    .form-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .form-tag {
+      display: inline-flex;
+      align-items: center;
+      background-color: rgba(139, 90, 43, 0.1);
+      border-radius: 15px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.9rem;
+    }
+    
+    .dark-mode .form-tag {
+      background-color: rgba(212, 175, 55, 0.2);
+    }
+    
+    .remove-tag {
+      margin-left: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .tag-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .add-tag-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      cursor: pointer;
+    }
+    
+    .dark-mode .add-tag-btn {
+      background-color: var(--accent);
+      color: var(--bg-dark);
+    }
+    
+    .submit-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+      width: 100%;
+      transition: var(--transition);
+    }
+    
+    .dark-mode .submit-btn {
+      background-color: var(--accent);
+      color: var(--bg-dark);
+    }
+    
+    .submit-btn:hover {
+      opacity: 0.9;
+    }
+    
+    .story-detail {
+      background-color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px var(--shadow);
+      margin-bottom: 2rem;
+    }
+    
+    .dark-mode .story-detail {
+      background-color: rgba(45, 32, 22, 0.8);
+    }
+    
+    .story-header {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(139, 90, 43, 0.3);
+      padding-bottom: 1rem;
+    }
+    
+    .story-title {
+      color: var(--primary);
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .dark-mode .story-title {
+      color: var(--accent);
+    }
+    
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .dark-mode .story-meta {
+      color: #bbb;
+    }
+    
+    .story-content {
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    
+    .story-source {
+      font-style: italic;
+      margin: 1rem 0;
+      padding: 0.5rem;
+      background-color: rgba(139, 90, 43, 0.05);
+      border-left: 3px solid var(--primary);
+    }
+    
+    .dark-mode .story-source {
+      background-color: rgba(212, 175, 55, 0.05);
+      border-left: 3px solid var(--accent);
+    }
+    
+    .lessons-learned {
+      margin: 1.5rem 0;
+    }
+    
+    .notes-section {
+      margin-top: 2rem;
+    }
+    
+    .note-card {
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      border-left: 3px solid var(--accent);
+    }
+    
+    .dark-mode .note-card {
+      background-color: rgba(45, 32, 22, 0.5);
+    }
+    
+    .note-date {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+    
+    .dark-mode .note-date {
+      color: #aaa;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .action-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .dark-mode .action-btn {
+      background-color: var(--accent);
+      color: var(--bg-dark);
+    }
+    
+    .action-btn:hover {
+      opacity: 0.9;
+    }
+    
+    .add-to-collection {
+      background-color: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .dark-mode .add-to-collection {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    
+    .collection-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px var(--shadow);
+      padding: 1.5rem;
+      transition: var(--transition);
+      cursor: pointer;
+      border-left: 4px solid var(--accent);
+    }
+    
+    .dark-mode .collection-card {
+      background-color: rgba(45, 32, 22, 0.8);
+    }
+    
+    .collection-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px var(--shadow);
+    }
+    
+    .collection-card h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .dark-mode .collection-card h3 {
+      color: var(--accent);
+    }
+    
+    .collection-stats {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    
+    .dark-mode .collection-stats {
+      color: #aaa;
+    }
+    
+    .collection-detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .collection-title {
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+    
+    .dark-mode .collection-title {
+      color: var(--accent);
+    }
+    
+    .collection-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .collection-description {
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    
+    .advanced-search-panel {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: none;
+    }
+    
+    .dark-mode .advanced-search-panel {
+      background-color: rgba(45, 32, 22, 0.8);
+    }
+    
+    .advanced-search-panel.active {
+      display: block;
+    }
+    
+    .search-filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .filter-group {
+      margin-bottom: 1rem;
+    }
+    
+    .filter-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    
+    .filter-input, .filter-select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .dark-mode .filter-input, 
+    .dark-mode .filter-select {
+      background-color: rgba(45, 32, 22, 0.8);
+      color: var(--text-light);
+      border-color: #444;
+    }
+    
+    .filter-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .filter-btn {
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    
+    .apply-filters {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+    }
+    
+    .dark-mode .apply-filters {
+      background-color: var(--accent);
+      color: var(--bg-dark);
+    }
+    
+    .reset-filters {
+      background-color: transparent;
+      border: 1px solid #ccc;
+      color: #666;
+    }
+    
+    .dark-mode .reset-filters {
+      border-color: #666;
+      color: #ccc;
+    }
+    
+    .no-stories {
+      text-align: center;
+      padding: 3rem;
+      color: #888;
+    }
+    
+    .dark-mode .no-stories {
+      color: #aaa;
+    }
+    
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav {
+        width: 100%;
+        justify-content: space-around;
+      }
+      
+      .story-detail {
+        padding: 1rem;
+      }
+      
+      .story-title {
+        font-size: 1.5rem;
+      }
+      
+      .action-buttons {
+        flex-wrap: wrap;
+      }
+      
+      .action-btn {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+      }
+      
+      .add-story-btn, .add-collection-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+      
+      .search-filters {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    .glow {
+      box-shadow: 0 0 10px var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-pattern"></div>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">📜</span>
+        <span>Salaf Stories Archive</span>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-view="stories">Stories</button>
+        <button class="nav-btn" data-view="collections">Collections</button>
+        <button class="theme-toggle">🌙</button>
+      </nav>
+    </div>
+  </header>
+<main>
+<!-- Stories View -->
+<div class="view active" id="stories-view">
+<div class="story-of-day">
+<div class="daily-label">Story of the Day</div>
+<h3 id="daily-title">Loading...</h3>
+<div class="figures" id="daily-figures"></div>
+<div class="story-content" id="daily-content"></div>
+<div class="tags" id="daily-tags"></div>
+</div>
+
+      <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search stories...">
+        <button class="advanced-search">⚙️</button>
+      </div>
+      
+      <div class="advanced-search-panel">
+        <h3 class="section-title">Advanced Search</h3>
+        <div class="search-filters">
+          <div class="filter-group">
+            <label for="figure-filter">Figure</label>
+            <input type="text" id="figure-filter" class="filter-input" placeholder="e.g. Imam Malik">
+          </div>
+          <div class="filter-group">
+            <label for="theme-filter">Theme</label>
+            <select id="theme-filter" class="filter-select">
+              <option value="">All themes</option>
+              <option value="Zuhd">Zuhd (Asceticism)</option>
+              <option value="Ilm">Ilm (Knowledge)</option>
+              <option value="Ibadah">Ibadah (Worship)</option>
+              <option value="Courage">Courage</option>
+              <option value="Patience">Patience</option>
+              <option value="Generosity">Generosity</option>
+              <option value="Humility">Humility</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="source-filter">Source</label>
+            <input type="text" id="source-filter" class="filter-input" placeholder="e.g. Hilyat al-Awliya">
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button class="filter-btn reset-filters">Reset</button>
+          <button class="filter-btn apply-filters">Apply Filters</button>
+        </div>
+      </div>
+      
+      <h3 class="section-title">All Stories</h3>
+      <div class="stories-grid" id="stories-container">
+        <!-- Stories will be loaded here -->
+        <div class="no-stories">
+          <p>No stories yet. Add your first story!</p>
+        </div>
+      </div>
+      
+      <button class="add-story-btn">+</button>
+    </div>
+    
+    <!-- Collections View -->
+    <div class="view" id="collections-view">
+      <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search collections...">
+      </div>
+      
+      <h3 class="section-title">My Collections</h3>
+      <div class="collections-grid" id="collections-container">
+        <!-- Collections will be loaded here -->
+        <div class="no-stories">
+          <p>No collections yet. Create your first collection!</p>
+        </div>
+      </div>
+      
+      <button class="add-collection-btn">+</button>
+    </div>
+    
+    <!-- Story Detail View -->
+    <div class="view" id="story-detail-view">
+      <div class="story-detail">
+        <div class="story-header">
+          <h2 class="story-title" id="detail-title"></h2>
+          <div class="story-meta">
+            <div class="detail-figures"></div>
+            <div class="detail-date"></div>
+          </div>
+          <div class="tags detail-tags"></div>
+        </div>
+        
+        <div class="story-content detail-content"></div>
+        
+        <div class="story-source detail-source"></div>
+        
+        <div class="lessons-learned">
+          <h3>Lessons Learned</h3>
+          <div class="detail-lessons"></div>
+        </div>
+        
+        <div class="notes-section">
+          <h3>Personal Notes</h3>
+          <div class="notes-container"></div>
+          
+          <div class="form-group">
+            <textarea class="form-textarea" id="new-note" placeholder="Add a new note or reflection..."></textarea>
+          </div>
+          <button class="submit-btn add-note-btn">Add Note</button>
+        </div>
+        
+        <div class="action-buttons">
+          <button class="action-btn back-btn">← Back</button>
+          <button class="action-btn edit-story-btn">✏️ Edit</button>
+          <button class="action-btn delete-story-btn">🗑️ Delete</button>
+          <button class="action-btn add-to-collection">+ Add to Collection</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Collection Detail View -->
+    <div class="view" id="collection-detail-view">
+      <div class="collection-detail-header">
+        <h2 class="collection-title"></h2>
+        <div class="collection-actions">
+          <button class="action-btn edit-collection-btn">✏️ Edit</button>
+          <button class="action-btn delete-collection-btn">🗑️ Delete</button>
+        </div>
+      </div>
+      
+      <p class="collection-description"></p>
+      
+      <h3 class="section-title">Stories in this Collection</h3>
+      <div class="stories-grid collection-stories">
+        <!-- Collection stories will be loaded here -->
+      </div>
+      
+      <div class="action-buttons">
+        <button class="action-btn back-btn">← Back to Collections</button>
+      </div>
+    </div>
+    
+    <!-- Add Story Modal -->
+    <div class="modal" id="add-story-modal">
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="section-title">Add New Story</h2>
+        
+        <form id="add-story-form">
+          <div class="form-group">
+            <label for="story-title">Title</label>
+            <input type="text" id="story-title" class="form-input" required placeholder="Enter a descriptive title">
+          </div>
+          
+          <div class="form-group">
+            <label for="story-figures">Main Figures</label>
+            <input type="text" id="story-figures" class="form-input" placeholder="e.g. Umar ibn Al-Khattab, Imam Ahmad">
+          </div>
+          
+          <div class="form-group">
+            <label for="story-content">Story</label>
+            <textarea id="story-content" class="form-textarea" required placeholder="Write the story here..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="story-source">Source (if known)</label>
+            <input type="text" id="story-source" class="form-input" placeholder="e.g. Siyar A'lam Al-Nubala, p. 120">
+          </div>
+          
+          <div class="form-group">
+            <label for="story-lessons">Lessons Learned</label>
+            <textarea id="story-lessons" class="form-textarea" placeholder="What can we learn from this story?"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label>Tags</label>
+            <div class="form-tags" id="tags-container">
+              <!-- Tags will be added here -->
+            </div>
+            <div class="tag-input">
+              <input type="text" id="tag-input" class="form-input" placeholder="e.g. Zuhd, Knowledge">
+              <button type="button" class="add-tag-btn">Add</button>
+            </div>
+          </div>
+          
+          <button type="submit" class="submit-btn">Save Story</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Add Collection Modal -->
+    <div class="modal" id="add-collection-modal">
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="section-title">Create New Collection</h2>
+        
+        <form id="add-collection-form">
+          <div class="form-group">
+            <label for="collection-title">Collection Title</label>
+            <input type="text" id="collection-title" class="form-input" required placeholder="Enter a title for your collection">
+          </div>
+          
+          <div class="form-group">
+            <label for="collection-description">Description</label>
+            <textarea id="collection-description" class="form-textarea" placeholder="What is this collection about?"></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn">Create Collection</button>
+        </form>
+      </div>
+    </div>
+    
+    <!-- Add to Collection Modal -->
+    <div class="modal" id="add-to-collection-modal">
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2 class="section-title">Add to Collection</h2>
+        
+        <div class="collections-list">
+          <!-- Collections will be listed here -->
+        </div>
+        
+        <div class="form-group">
+          <button type="button" class="submit-btn create-and-add">Create New Collection</button>
+        </div>
+      </div>
+    </div>
+    <script>
+// Database setup and utility functions
+const db1 = {
+name: 'salafStoriesDB',
+version: 1,
+db: null,
+
+      init: function() {
+        return new Promise((res, rej) => {
+          const req = indexedDB.open(this.name, this.version);
+          
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            
+            // Stories store
+            if (!db.objectStoreNames.contains('stories')) {
+              const storiesStore = db.createObjectStore('stories', {keyPath: 'id', autoIncrement: true});
+              storiesStore.createIndex('title', 'title', {unique: false});
+              storiesStore.createIndex('figures', 'figures', {unique: false, multiEntry: true});
+              storiesStore.createIndex('tags', 'tags', {unique: false, multiEntry: true});
+              storiesStore.createIndex('date', 'date', {unique: false});
+            }
+            
+            // Collections store
+            if (!db.objectStoreNames.contains('collections')) {
+              const collectionsStore = db.createObjectStore('collections', {keyPath: 'id', autoIncrement: true});
+              collectionsStore.createIndex('title', 'title', {unique: false});
+            }
+            
+            // Collection items store
+            if (!db.objectStoreNames.contains('collectionItems')) {
+              const itemsStore = db.createObjectStore('collectionItems', {keyPath: 'id', autoIncrement: true});
+              itemsStore.createIndex('collectionId', 'collectionId', {unique: false});
+              itemsStore.createIndex('storyId', 'storyId', {unique: false});
+            }
+            
+            // Notes store
+            if (!db.objectStoreNames.contains('notes')) {
+              const notesStore = db.createObjectStore('notes', {keyPath: 'id', autoIncrement: true});
+              notesStore.createIndex('storyId', 'storyId', {unique: false});
+              notesStore.createIndex('date', 'date', {unique: false});
+            }
+            
+            // Settings store
+            if (!db.objectStoreNames.contains('settings')) {
+              db.createObjectStore('settings', {keyPath: 'key'});
+            }
+          };
+          
+          req.onsuccess = (e) => {
+            this.db = e.target.result;
+            res(this.db);
+          };
+          
+          req.onerror = (e) => {
+            rej(e.target.error);
+          };
+        });
+      },
+      
+      add: function(store, item) {
+        return new Promise((res, rej) => {
+          const tx = this.db.transaction(store, 'readwrite');
+          const objStore = tx.objectStore(store);
+          const req = objStore.add(item);
+          
+          req.onsuccess = (e) => res(e.target.result);
+          req.onerror = (e) => rej(e.target.error);
+        });
+      },
+      
+      getAll: function(store) {
+        return new Promise((res, rej) => {
+          const tx = this.db.transaction(store, 'readonly');
+          const objStore = tx.objectStore(store);
+          const req = objStore.getAll();
+          
+          req.onsuccess = (e) => res(e.target.result);
+          req.onerror = (e) => rej(e.target.error);
+        });
+      },
+      
+      get: function(store, id) {
+        return new Promise((res, rej) => {
+          const tx = this.db.transaction(store, 'readonly');
+          const objStore = tx.objectStore(store);
+          const req = objStore.get(id);
+          
+          req.onsuccess = (e) => res(e.target.result);
+          req.onerror = (e) => rej(e.target.error);
+        });
+      },
+      
+      update: function(store, item) {
+        return new Promise((res, rej) => {
+          const tx = this.db.transaction(store, 'readwrite');
+          const objStore = tx.objectStore(store);
+          const req = objStore.put(item);
+          
+          req.onsuccess = (e) => res(e.target.result);
+          req.onerror = (e) => rej(e.target.error);
+        });
+      },
+      
+      delete: function(store, id) {
+        return new Promise((res, rej) => {
+          const tx = this.db.transaction(store, 'readwrite');
+          const objStore = tx.objectStore(store);
+          const req = objStore.delete(id);
+          
+          req.onsuccess = (e) => res(e.target.result);
+          req.onerror = (e) => rej(e.target.error);
+        });
+      },
+      
+      getByIndex: function(store, indexName, value) {
+        return new Promise((res, rej) => {
+          const tx = this.db.transaction(store, 'readonly');
+          const objStore = tx.objectStore(store);
+          const index = objStore.index(indexName);
+          const req = index.getAll(value);
+          
+          req.onsuccess = (e) => res(e.target.result);
+          req.onerror = (e) => rej(e.target.error);
+        });
+      }
+    };
+    
+    // Utility functions
+    const utils = {
+      formatDate: function(date) {
+        const d = new Date(date);
+        return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+      },
+      
+      truncateText: function(text, length) {
+        if (!text) return '';
+        return text.length > length ? text.substring(0, length) + '...' : text;
+      },
+      
+      generateId: function() {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+      }
+    };
+    
+    // DOM Elements
+    const els = {
+      views: {
+        stories: document.getElementById('stories-view'),
+        collections: document.getElementById('collections-view'),
+        storyDetail: document.getElementById('story-detail-view'),
+        collectionDetail: document.getElementById('collection-detail-view')
+      },
+      navBtns: document.querySelectorAll('.nav-btn'),
+      themeToggle: document.querySelector('.theme-toggle'),
+      storiesContainer: document.getElementById('stories-container'),
+      collectionsContainer: document.getElementById('collections-container'),
+      addStoryBtn: document.querySelector('.add-story-btn'),
+      addCollectionBtn: document.querySelector('.add-collection-btn'),
+      modals: {
+        addStory: document.getElementById('add-story-modal'),
+        addCollection: document.getElementById('add-collection-modal'),
+        addToCollection: document.getElementById('add-to-collection-modal')
+      },
+      forms: {
+        addStory: document.getElementById('add-story-form'),
+        addCollection: document.getElementById('add-collection-form')
+      },
+      closeModalBtns: document.querySelectorAll('.close-modal'),
+      addTagBtn: document.querySelector('.add-tag-btn'),
+      tagInput: document.getElementById('tag-input'),
+      tagsContainer: document.getElementById('tags-container'),
+      searchInput: document.querySelector('.search-input'),
+      advSearchBtn: document.querySelector('.advanced-search'),
+      advSearchPanel: document.querySelector('.advanced-search-panel'),
+      filterBtns: document.querySelectorAll('.filter-btn'),
+      storyOfDay: {
+        title: document.getElementById('daily-title'),
+        figures: document.getElementById('daily-figures'),
+        content: document.getElementById('daily-content'),
+        tags: document.getElementById('daily-tags')
+      },
+      backBtns: document.querySelectorAll('.back-btn'),
+      addToCollectionBtn: document.querySelector('.add-to-collection'),
+      collectionsListContainer: document.querySelector('.collections-list'),
+      createAndAddBtn: document.querySelector('.create-and-add')
+    };
+    
+    // App state
+    const state = {
+      currentView: 'stories',
+      editingStoryId: null,
+      editingCollectionId: null,
+      currentStoryId: null,
+      currentCollectionId: null,
+      darkMode: localStorage.getItem('darkMode') === 'true',
+      tags: [],
+      storyOfDayId: null,
+      filters: {
+        figure: '',
+        theme: '',
+        source: ''
+      }
+    };
+    
+    // Stories controller
+    const storiesCtrl = {
+      addStory: async function(story) {
+        story.date = new Date().toISOString();
+        const id = await db1.add('stories', story);
+        this.loadStories();
+        return id;
+      },
+      
+      updateStory: async function(story) {
+        await db1.update('stories', story);
+        this.loadStories();
+      },
+      
+      deleteStory: async function(id) {
+        await db1.delete('stories', id);
+        
+        // Delete associated notes
+        const notes = await db1.getByIndex('notes', 'storyId', id);
+        for (const note of notes) {
+          await db1.delete('notes', note.id);
+        }
+        
+        // Remove from collections
+        const collectionItems = await db1.getByIndex('collectionItems', 'storyId', id);
+        for (const item of collectionItems) {
+          await db1.delete('collectionItems', item.id);
+        }
+        
+        this.loadStories();
+      },
+      
+      getStory: async function(id) {
+        return await db1.get('stories', id);
+      },
+      
+      loadStories: async function(filter = '') {
+        const stories = await db1.getAll('stories');
+        els.storiesContainer.innerHTML = '';
+        
+        let filteredStories = stories;
+        
+        if (filter) {
+          const lowerFilter = filter.toLowerCase();
+          filteredStories = stories.filter(story => 
+            story.title.toLowerCase().includes(lowerFilter) ||
+            (story.figures && story.figures.toLowerCase().includes(lowerFilter)) ||
+            (story.content && story.content.toLowerCase().includes(lowerFilter)) ||
+            (story.tags && story.tags.some(tag => tag.toLowerCase().includes(lowerFilter)))
+          );
+        }
+        
+        // Apply advanced filters if active
+        if (state.filters.figure || state.filters.theme || state.filters.source) {
+          filteredStories = filteredStories.filter(story => {
+            let match = true;
+            
+            if (state.filters.figure && story.figures) {
+              match = match && story.figures.toLowerCase().includes(state.filters.figure.toLowerCase());
+            }
+            
+            if (state.filters.theme && story.tags) {
+              match = match && story.tags.some(tag => 
+                tag.toLowerCase() === state.filters.theme.toLowerCase());
+            }
+            
+            if (state.filters.source && story.source) {
+              match = match && story.source.toLowerCase().includes(state.filters.source.toLowerCase());
+            }
+            
+            return match;
+          });
+        }
+        
+        // Sort by date (newest first)
+        filteredStories.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        if (filteredStories.length === 0) {
+          els.storiesContainer.innerHTML = `
+            <div class="no-stories">
+              <p>No stories found. Try a different search term or add a new story.</p>
+            </div>
+          `;
+          return;
+        }
+        
+        filteredStories.forEach(story => {
+          const storyCard = document.createElement('div');
+          storyCard.className = 'story-card fade-in';
+          storyCard.dataset.id = story.id;
+          
+          const tagsHTML = story.tags ? story.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : '';
+          
+          storyCard.innerHTML = `
+            <h3>${story.title}</h3>
+            ${story.figures ? `<div class="figures">${story.figures}</div>` : ''}
+            <div class="story-preview">${utils.truncateText(story.content, 150)}</div>
+            <div class="tags">${tagsHTML}</div>
+          `;
+          
+          storyCard.addEventListener('click', () => this.showStoryDetail(story.id));
+          els.storiesContainer.appendChild(storyCard);
+        });
+        
+        // Update story of the day
+        this.updateStoryOfDay();
+      },
+      
+      showStoryDetail: async function(id) {
+        const story = await this.getStory(id);
+        if (!story) return;
+        
+        state.currentStoryId = id;
+        
+        // Set story details
+        document.querySelector('#detail-title').textContent = story.title;
+        document.querySelector('.detail-figures').textContent = story.figures || '';
+        document.querySelector('.detail-date').textContent = `Added: ${utils.formatDate(story.date)}`;
+        document.querySelector('.detail-content').textContent = story.content;
+        document.querySelector('.detail-source').textContent = story.source ? `Source: ${story.source}` : '';
+        document.querySelector('.detail-lessons').textContent = story.lessons || 'No specific lessons noted.';
+        
+        // Add tags
+        const tagsContainer = document.querySelector('.detail-tags');
+        tagsContainer.innerHTML = '';
+        if (story.tags && story.tags.length > 0) {
+          story.tags.forEach(tag => {
+            const tagEl = document.createElement('span');
+            tagEl.className = 'tag';
+            tagEl.textContent = tag;
+            tagsContainer.appendChild(tagEl);
+          });
+        }
+        
+        // Load notes
+        await this.loadNotes(id);
+        
+        // Show detail view
+        this.changeView('storyDetail');
+      },
+      
+      loadNotes: async function(storyId) {
+        const notes = await db1.getByIndex('notes', 'storyId', storyId);
+        const notesContainer = document.querySelector('.notes-container');
+        notesContainer.innerHTML = '';
+        
+        if (notes.length === 0) {
+          notesContainer.innerHTML = '<p>No notes yet. Add your reflections above.</p>';
+          return;
+        }
+        
+        // Sort notes by date (newest first)
+        notes.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        notes.forEach(note => {
+          const noteCard = document.createElement('div');
+          noteCard.className = 'note-card';
+          noteCard.innerHTML = `
+            <div class="note-date">${utils.formatDate(note.date)}</div>
+            <div class="note-content">${note.content}</div>
+          `;
+          notesContainer.appendChild(noteCard);
+        });
+      },
+      
+      addNote: async function(storyId, noteContent) {
+        if (!noteContent.trim()) return;
+        
+        const note = {
+          storyId,
+          content: noteContent,
+          date: new Date().toISOString()
+        };
+        
+        await db1.add('notes', note);
+        await this.loadNotes(storyId);
+        
+        // Clear the textarea
+        document.getElementById('new-note').value = '';
+      },
+      
+      updateStoryOfDay: async function() {
+        const stories = await db1.getAll('stories');
+        if (stories.length === 0) {
+          els.storyOfDay.title.textContent = 'No stories yet';
+          els.storyOfDay.content.textContent = 'Add your first story to see it featured here.';
+          return;
+        }
+        
+        // Check if we need to select a new story of the day
+        const settings = await db1.get('settings', 'storyOfDay');
+        const now = new Date();
+        let storyId;
+        
+        if (!settings || new Date(settings.date).getDate() !== now.getDate()) {
+          // Select a random story
+          const randomIndex = Math.floor(Math.random() * stories.length);
+          storyId = stories[randomIndex].id;
+          
+          // Save the new story of the day
+          await db1.update('settings', {
+            key: 'storyOfDay',
+            storyId,
+            date: now.toISOString()
+          });
+        } else {
+          storyId = settings.storyId;
+        }
+        
+        // Display the story of the day
+        const story = await this.getStory(storyId);
+        if (story) {
+          els.storyOfDay.title.textContent = story.title;
+          els.storyOfDay.figures.textContent = story.figures || '';
+          els.storyOfDay.content.textContent = utils.truncateText(story.content, 300);
+          
+          // Add tags
+          els.storyOfDay.tags.innerHTML = '';
+          if (story.tags && story.tags.length > 0) {
+            story.tags.forEach(tag => {
+              const tagEl = document.createElement('span');
+              tagEl.className = 'tag';
+              tagEl.textContent = tag;
+              els.storyOfDay.tags.appendChild(tagEl);
+            });
+          }
+          
+          // Save current story of day ID
+          state.storyOfDayId = storyId;
+          
+          // Add click event
+          document.querySelector('.story-of-day').addEventListener('click', () => {
+            this.showStoryDetail(storyId);
+          });
+        }
+      },
+      
+      changeView: function(viewName) {
+        // Hide all views
+        Object.values(els.views).forEach(view => {
+          view.classList.remove('active');
+        });
+        
+        // Show the selected view
+        els.views[viewName].classList.add('active');
+        
+        // Update current view in state
+        state.currentView = viewName;
+      },
+      
+      fillFormForEdit: async function(id) {
+        const story = await this.getStory(id);
+        if (!story) return;
+        
+        document.getElementById('story-title').value = story.title;
+        document.getElementById('story-figures').value = story.figures || '';
+        document.getElementById('story-content').value = story.content;
+        document.getElementById('story-source').value = story.source || '';
+        document.getElementById('story-lessons').value = story.lessons || '';
+        
+        // Add tags
+        els.tagsContainer.innerHTML = '';
+        state.tags = [];
+        if (story.tags && story.tags.length > 0) {
+          story.tags.forEach(tag => {
+            this.addTagToForm(tag);
+          });
+        }
+        
+        state.editingStoryId = id;
+      }
+    };
+    
+    // Collections controller
+    const collectionsCtrl = {
+      addCollection: async function(collection) {
+        collection.date = new Date().toISOString();
+        collection.count = 0;
+        const id = await db1.add('collections', collection);
+        this.loadCollections();
+        return id;
+      },
+      
+      updateCollection: async function(collection) {
+        await db1.update('collections', collection);
+        this.loadCollections();
+      },
+      
+      deleteCollection: async function(id) {
+        await db1.delete('collections', id);
+        
+        // Delete all collection items
+        const items = await db1.getByIndex('collectionItems', 'collectionId', id);
+        for (const item of items) {
+          await db1.delete('collectionItems', item.id);
+        }
+        
+        this.loadCollections();
+      },
+      
+      getCollection: async function(id) {
+        return await db1.get('collections', id);
+      },
+      
+      loadCollections: async function(filter = '') {
+        const collections = await db1.getAll('collections');
+        els.collectionsContainer.innerHTML = '';
+        
+        let filteredCollections = collections;
+        
+        if (filter) {
+          const lowerFilter = filter.toLowerCase();
+          filteredCollections = collections.filter(collection => 
+            collection.title.toLowerCase().includes(lowerFilter) ||
+            (collection.description && collection.description.toLowerCase().includes(lowerFilter))
+          );
+        }
+        
+        // Sort by date (newest first)
+        filteredCollections.sort((a, b) => new Date(b.date) - new Date(a.date));
+        
+        if (filteredCollections.length === 0) {
+          els.collectionsContainer.innerHTML = `
+            <div class="no-stories">
+              <p>No collections found. Create your first collection!</p>
+            </div>
+          `;
+          return;
+        }
+        
+        filteredCollections.forEach(collection => {
+          const collectionCard = document.createElement('div');
+          collectionCard.className = 'collection-card fade-in';
+          collectionCard.dataset.id = collection.id;
+          
+          collectionCard.innerHTML = `
+            <h3>${collection.title}</h3>
+            <p>${collection.description ? utils.truncateText(collection.description, 100) : 'No description'}</p>
+            <div class="collection-stats">
+              <span>${collection.count} stories</span>
+              <span>Created: ${new Date(collection.date).toLocaleDateString()}</span>
+            </div>
+          `;
+          
+          collectionCard.addEventListener('click', () => this.showCollectionDetail(collection.id));
+          els.collectionsContainer.appendChild(collectionCard);
+        });
+      },
+      
+      showCollectionDetail: async function(id) {
+        const collection = await this.getCollection(id);
+        if (!collection) return;
+        
+        state.currentCollectionId = id;
+        
+        // Set collection details
+        document.querySelector('.collection-title').textContent = collection.title;
+        document.querySelector('.collection-description').textContent = collection.description || 'No description provided.';
+        
+        // Load stories in this collection
+        await this.loadCollectionStories(id);
+        
+        // Show detail view
+        storiesCtrl.changeView('collectionDetail');
+      },
+      
+      loadCollectionStories: async function(collectionId) {
+        const items = await db1.getByIndex('collectionItems', 'collectionId', collectionId);
+        const storiesContainer = document.querySelector('.collection-stories');
+        storiesContainer.innerHTML = '';
+        
+        if (items.length === 0) {
+          storiesContainer.innerHTML = `
+            <div class="no-stories">
+              <p>No stories in this collection yet. Add stories to build your collection.</p>
+            </div>
+          `;
+          return;
+        }
+        
+        // Load all stories in the collection
+        for (const item of items) {
+          const story = await storiesCtrl.getStory(item.storyId);
+          if (!story) continue;
+          
+          const storyCard = document.createElement('div');
+          storyCard.className = 'story-card fade-in';
+          storyCard.dataset.id = story.id;
+          
+          const tagsHTML = story.tags ? story.tags.map(tag => `<span class="tag">${tag}</span>`).join('') : '';
+          
+          storyCard.innerHTML = `
+            <h3>${story.title}</h3>
+            ${story.figures ? `<div class="figures">${story.figures}</div>` : ''}
+            <div class="story-preview">${utils.truncateText(story.content, 150)}</div>
+            <div class="tags">${tagsHTML}</div>
+          `;
+          
+          storyCard.addEventListener('click', () => storiesCtrl.showStoryDetail(story.id));
+          storiesContainer.appendChild(storyCard);
+        }
+      },
+      
+      addStoryToCollection: async function(storyId, collectionId) {
+        // Check if story is already in collection
+        const existingItems = await db1.getByIndex('collectionItems', 'collectionId', collectionId);
+        const alreadyInCollection = existingItems.some(item => item.storyId === storyId);
+        
+        if (alreadyInCollection) {
+          alert('This story is already in the collection.');
+          return;
+        }
+        
+        // Add to collection
+        await db1.add('collectionItems', {
+          collectionId,
+          storyId,
+          date: new Date().toISOString()
+        });
+        
+        // Update collection count
+        const collection = await this.getCollection(collectionId);
+        collection.count = (collection.count || 0) + 1;
+        await this.updateCollection(collection);
+
+        alert('Story added to collection successfully.');
+      },
+      
+      loadCollectionsForModal: async function(storyId) {
+        const collections = await db1.getAll('collections');
+        els.collectionsListContainer.innerHTML = '';
+        
+        if (collections.length === 0) {
+          els.collectionsListContainer.innerHTML = `
+            <p>You don't have any collections yet. Create your first collection!</p>
+          `;
+          return;
+        }
+        
+        collections.forEach(collection => {
+          const collectionItem = document.createElement('div');
+          collectionItem.className = 'collection-card';
+          collectionItem.dataset.id = collection.id;
+          
+          collectionItem.innerHTML = `
+            <h3>${collection.title}</h3>
+            <p>${collection.description ? utils.truncateText(collection.description, 80) : 'No description'}</p>
+          `;
+          
+          collectionItem.addEventListener('click', () => {
+            this.addStoryToCollection(storyId, collection.id);
+            closeModal(els.modals.addToCollection);
+          });
+          
+          els.collectionsListContainer.appendChild(collectionItem);
+        });
+      },
+      
+      fillFormForEdit: async function(id) {
+        const collection = await this.getCollection(id);
+        if (!collection) return;
+        
+        document.getElementById('collection-title').value = collection.title;
+        document.getElementById('collection-description').value = collection.description || '';
+        
+        state.editingCollectionId = id;
+      }
+    };
+    
+    // Event listeners
+    function setupEventListeners() {
+      // Navigation buttons
+      els.navBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          els.navBtns.forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+          
+          const viewName = this.dataset.view;
+          storiesCtrl.changeView(viewName);
+          
+          // Load appropriate data
+          if (viewName === 'stories') {
+            storiesCtrl.loadStories();
+          } else if (viewName === 'collections') {
+            collectionsCtrl.loadCollections();
+          }
+        });
+      });
+      
+      // Theme toggle
+      els.themeToggle.addEventListener('click', toggleDarkMode);
+      
+      // Add story button
+      els.addStoryBtn.addEventListener('click', () => {
+        state.editingStoryId = null;
+        els.forms.addStory.reset();
+        els.tagsContainer.innerHTML = '';
+        state.tags = [];
+        openModal(els.modals.addStory);
+      });
+      
+      // Add collection button
+      els.addCollectionBtn.addEventListener('click', () => {
+        state.editingCollectionId = null;
+        els.forms.addCollection.reset();
+        openModal(els.modals.addCollection);
+      });
+      
+      // Close modal buttons
+      els.closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          closeModal(btn.closest('.modal'));
+        });
+      });
+      
+      // Add story form submit
+      els.forms.addStory.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const story = {
+          title: document.getElementById('story-title').value,
+          figures: document.getElementById('story-figures').value,
+          content: document.getElementById('story-content').value,
+          source: document.getElementById('story-source').value,
+          lessons: document.getElementById('story-lessons').value,
+          tags: state.tags
+        };
+        
+        if (state.editingStoryId) {
+          story.id = state.editingStoryId;
+          await storiesCtrl.updateStory(story);
+          alert('Story updated successfully!');
+        } else {
+          await storiesCtrl.addStory(story);
+          alert('Story added successfully!');
+        }
+        
+        closeModal(els.modals.addStory);
+      });
+      
+      // Add collection form submit
+      els.forms.addCollection.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const collection = {
+          title: document.getElementById('collection-title').value,
+          description: document.getElementById('collection-description').value
+        };
+        
+        if (state.editingCollectionId) {
+          collection.id = state.editingCollectionId;
+          collection.count = (await collectionsCtrl.getCollection(state.editingCollectionId)).count;
+          await collectionsCtrl.updateCollection(collection);
+          alert('Collection updated successfully!');
+        } else {
+          await collectionsCtrl.addCollection(collection);
+          alert('Collection created successfully!');
+        }
+        
+        closeModal(els.modals.addCollection);
+      });
+      
+      // Add tag button
+      els.addTagBtn.addEventListener('click', () => {
+        const tagValue = els.tagInput.value.trim();
+        if (tagValue && !state.tags.includes(tagValue)) {
+          storiesCtrl.addTagToForm(tagValue);
+          els.tagInput.value = '';
+        }
+      });
+      
+      // Search functionality
+      els.searchInput.addEventListener('input', debounce(function() {
+        const searchTerm = this.value.trim();
+        if (state.currentView === 'stories') {
+          storiesCtrl.loadStories(searchTerm);
+        } else if (state.currentView === 'collections') {
+          collectionsCtrl.loadCollections(searchTerm);
+        }
+      }, 300));
+      
+      // Advanced search button
+      els.advSearchBtn.addEventListener('click', () => {
+        els.advSearchPanel.classList.toggle('active');
+      });
+      
+      // Filter buttons
+      els.filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.classList.contains('reset-filters')) {
+            // Reset filters
+            document.getElementById('figure-filter').value = '';
+            document.getElementById('theme-filter').value = '';
+            document.getElementById('source-filter').value = '';
+            
+            state.filters = {
+              figure: '',
+              theme: '',
+              source: ''
+            };
+            
+            storiesCtrl.loadStories();
+          } else if (btn.classList.contains('apply-filters')) {
+            // Apply filters
+            state.filters = {
+              figure: document.getElementById('figure-filter').value.trim(),
+              theme: document.getElementById('theme-filter').value,
+              source: document.getElementById('source-filter').value.trim()
+            };
+            
+            storiesCtrl.loadStories();
+          }
+        });
+      });
+      
+      // Back buttons
+      els.backBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (state.currentView === 'storyDetail') {
+            storiesCtrl.changeView('stories');
+            storiesCtrl.loadStories();
+          } else if (state.currentView === 'collectionDetail') {
+            storiesCtrl.changeView('collections');
+            collectionsCtrl.loadCollections();
+          }
+        });
+      });
+      
+      // Add note button
+      document.querySelector('.add-note-btn').addEventListener('click', () => {
+        const noteContent = document.getElementById('new-note').value.trim();
+        if (noteContent) {
+          storiesCtrl.addNote(state.currentStoryId, noteContent);
+        }
+      });
+      
+      // Edit story button
+      document.querySelector('.edit-story-btn').addEventListener('click', async () => {
+        await storiesCtrl.fillFormForEdit(state.currentStoryId);
+        openModal(els.modals.addStory);
+      });
+      
+      // Delete story button
+      document.querySelector('.delete-story-btn').addEventListener('click', async () => {
+        if (confirm('Are you sure you want to delete this story? This action cannot be undone.')) {
+          await storiesCtrl.deleteStory(state.currentStoryId);
+          storiesCtrl.changeView('stories');
+          storiesCtrl.loadStories();
+        }
+      });
+      
+      // Add to collection button
+      els.addToCollectionBtn.addEventListener('click', async () => {
+        await collectionsCtrl.loadCollectionsForModal(state.currentStoryId);
+        openModal(els.modals.addToCollection);
+      });
+      
+      // Create and add to collection button
+      els.createAndAddBtn.addEventListener('click', () => {
+        closeModal(els.modals.addToCollection);
+        openModal(els.modals.addCollection);
+      });
+      
+      // Edit collection button
+      document.querySelector('.edit-collection-btn').addEventListener('click', async () => {
+        await collectionsCtrl.fillFormForEdit(state.currentCollectionId);
+        openModal(els.modals.addCollection);
+      });
+      
+      // Delete collection button
+      document.querySelector('.delete-collection-btn').addEventListener('click', async () => {
+        if (confirm('Are you sure you want to delete this collection? The stories will not be deleted.')) {
+          await collectionsCtrl.deleteCollection(state.currentCollectionId);
+          storiesCtrl.changeView('collections');
+          collectionsCtrl.loadCollections();
+        }
+      });
+      
+      // Story of the day click
+      document.querySelector('.story-of-day').addEventListener('click', () => {
+        if (state.storyOfDayId) {
+          storiesCtrl.showStoryDetail(state.storyOfDayId);
+        }
+      });
+      
+      // Close modals when clicking outside
+      window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+          closeModal(e.target);
+        }
+      });
+    }
+    
+    // Modal functions
+    function openModal(modal) {
+      modal.classList.add('active');
+    }
+    
+    function closeModal(modal) {
+      modal.classList.remove('active');
+    }
+    
+    // Dark mode toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      state.darkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', state.darkMode);
+      
+      // Update icon
+      els.themeToggle.textContent = state.darkMode ? '☀️' : '🌙';
+    }
+    
+    // Add tag to form
+    storiesCtrl.addTagToForm = function(tag) {
+      if (!tag || state.tags.includes(tag)) return;
+      
+      state.tags.push(tag);
+      
+      const tagEl = document.createElement('div');
+      tagEl.className = 'form-tag';
+      tagEl.innerHTML = `
+        ${tag}
+        <span class="remove-tag" data-tag="${tag}">&times;</span>
+      `;
+      
+      els.tagsContainer.appendChild(tagEl);
+      
+      // Add event listener to remove tag
+      tagEl.querySelector('.remove-tag').addEventListener('click', function() {
+        const tagToRemove = this.dataset.tag;
+        state.tags = state.tags.filter(t => t !== tagToRemove);
+        tagEl.remove();
+      });
+    };
+    
+    // Debounce function for search
+    function debounce(func, delay) {
+      let timeout;
+      return function() {
+        const context = this;
+        const args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          func.apply(context, args);
+        }, delay);
+      };
+    }
+    
+    // Initialize app
+    async function init() {
+      // Load custom fonts
+      const fontLink = document.createElement('link');
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Naskh+Arabic&display=swap';
+      fontLink.rel = 'stylesheet';
+      document.head.appendChild(fontLink);
+      
+      // Initialize database
+      await db1.init();
+      
+      // Set up event listeners
+      setupEventListeners();
+      
+      // Load initial data
+      storiesCtrl.loadStories();
+      
+      // Apply dark mode if saved
+      if (state.darkMode) {
+        document.body.classList.add('dark-mode');
+        els.themeToggle.textContent = '☀️';
+      } else {
+        els.themeToggle.textContent = '🌙';
+      }
+      
+      // Add sample story if database is empty
+      const stories = await db1.getAll('stories');
+      if (stories.length === 0) {
+        const sampleStory = {
+          title: "Imam Ahmad's Patience During the Inquisition",
+          figures: "Imam Ahmad ibn Hanbal",
+          content: "During the Mihna (Inquisition) instituted by the Abbasid Caliph al-Ma'mun, Imam Ahmad ibn Hanbal was imprisoned and severely beaten for refusing to accept the claim that the Quran was created rather than being the eternal word of Allah. Despite facing torture and imprisonment for years, he remained steadfast in his belief. When asked how he endured such trials, he replied, \"When the whips were raised, I remembered Allah's reward, and the pain became easy to bear.\" His unwavering stance eventually led to the end of the Mihna under Caliph al-Mutawakkil.",
+          source: "Siyar A'lam al-Nubala by Imam al-Dhahabi",
+          lessons: "The importance of staying firm upon the truth even in the face of severe hardship. The reward of patience is greater than the temporary relief of compromise.",
+          tags: ["Patience", "Knowledge", "Courage"]
+        };
+        await storiesCtrl.addStory(sampleStory);
+      }
+    }
+    
+    // Start the app
+    init();
+
+
+    // Add sample stories
+async function addSampleStories() {
+const sampleStories = [
+{
+title: "Abu Bakr's Generosity",
+figures: "Abu Bakr as-Siddiq",
+content: "When the Prophet Muhammad ﷺ called for donations to prepare the Muslim army for the expedition to Tabuk, Abu Bakr brought all of his wealth. The Prophet ﷺ asked him, 'What have you left for your family?' Abu Bakr replied, 'I have left them Allah and His Messenger.' His selfless generosity demonstrated his complete trust in Allah's provision.",
+source: "Jami at-Tirmidhi",
+lessons: "True faith means prioritizing Allah's cause over worldly possessions. Trust in Allah's provision brings contentment.",
+tags: ["Generosity", "Tawakkul", "Sahaba"]
+},
+{
+title: "Umar's Justice with the Jewish Man",
+figures: "Umar ibn al-Khattab",
+content: "A Jewish man and Umar ibn al-Khattab had a dispute which they took to court. The judge, seeing that it was the Caliph who had come before him, stood up out of respect. Umar immediately reprimanded the judge saying, 'This is your first act of injustice,' as he felt the judge had shown favoritism. In the end, the Jewish man won the case against the Caliph, demonstrating the fairness of Islamic justice regardless of position or faith.",
+source: "Tarikh al-Khulafa",
+lessons: "Justice must be applied equally to all, regardless of status or religion. Leaders must hold themselves to the highest standards.",
+tags: ["Justice", "Leadership", "Humility"]
+},
+{
+title: "Uthman's Modesty Despite Wealth",
+figures: "Uthman ibn Affan",
+content: "Despite being among the wealthiest companions, Uthman was known for his simplicity. It was narrated that he would sleep on the bare floor of the mosque while being the Caliph. Once, while napping in the mosque, some people entered and didn't recognize him due to his simple appearance. Only after someone pointed out that this was the Caliph did they realize they were in the presence of the ruler of the vast Islamic empire.",
+source: "Al-Bidayah wan-Nihayah",
+lessons: "Wealth doesn't necessitate ostentation. True leadership lies in simplicity and accessibility.",
+tags: ["Humility", "Zuhd", "Leadership"]
+},
+{
+title: "Ali's Wisdom in Judgment",
+figures: "Ali ibn Abi Talib",
+content: "A Jewish man was accused of stealing a shield from a Muslim. The Muslim brought Ali ibn Abi Talib as a witness. When asked to testify, Ali said, 'I did not see him steal.' The case was dismissed. Later, the Jewish man embraced Islam and confessed to stealing the shield, saying he was amazed that Ali, despite being the Caliph, wouldn't bear false witness even against a non-Muslim.",
+source: "Various historical accounts",
+lessons: "Truth must be upheld regardless of whom it benefits or harms. Integrity in leadership has a profound impact on others.",
+tags: ["Honesty", "Wisdom", "Leadership"]
+},
+{
+title: "Imam Malik's Standing for Knowledge",
+figures: "Imam Malik ibn Anas",
+content: "When the Caliph Harun al-Rashid visited Madinah, he asked Imam Malik to bring his book of hadith, Al-Muwatta, to him at the palace. Imam Malik replied, 'Knowledge is sought, not summoned,' insisting that the Caliph come to the mosque for the lesson like any other student. Recognizing the imam's point, the Caliph attended Malik's circle of knowledge alongside common people.",
+source: "Siyar A'lam an-Nubala",
+lessons: "Knowledge deserves respect regardless of one's worldly status. Scholars must maintain the dignity of sacred knowledge.",
+tags: ["Ilm", "Dignity", "Courage"]
+},
+{
+title: "Imam Shafi'i's Respect for His Teacher",
+figures: "Imam Shafi'i, Imam Malik",
+content: "When Imam Shafi'i would read from Imam Malik's Muwatta in his presence, he would turn the pages so gently that Malik asked why he did so. Shafi'i replied, 'I turn them gently out of respect for you and reverence for the knowledge contained therein.' His exceptional adab (etiquette) with his teacher demonstrated how the pursuit of knowledge should be accompanied by the highest moral character.",
+source: "Adab al-Shafi'i wa Manaqibuhu",
+lessons: "Respect for teachers is integral to acquiring beneficial knowledge. Knowledge should instill humility, not arrogance.",
+tags: ["Adab", "Ilm", "Humility"]
+},
+{
+title: "Imam Abu Hanifa's Patience with His Neighbor",
+figures: "Imam Abu Hanifa",
+content: "Imam Abu Hanifa had a neighbor who would drink alcohol and sing loudly at night, disturbing the Imam's studies. Instead of complaining, Abu Hanifa remained patient. One night, when the singing stopped, Abu Hanifa inquired and learned his neighbor had been imprisoned. He immediately went to secure the man's release. The neighbor, astonished by this kindness, asked why Abu Hanifa had helped him despite his bad behavior. Upon learning of the Imam's identity, the man repented and became one of his devoted students.",
+source: "Manaqib Abi Hanifa",
+lessons: "Responding to harm with good can transform hearts. Patience and compassion are more effective than condemnation.",
+tags: ["Patience", "Da'wah", "Character"]
+},
+{
+title: "Imam Ahmad's Forgiveness of His Oppressor",
+figures: "Imam Ahmad ibn Hanbal, Ishaq ibn Ibrahim",
+content: "Ishaq ibn Ibrahim was the governor who had overseen Imam Ahmad's flogging during the Mihna (Inquisition). Years later, when the tide had turned and Imam Ahmad was revered, Ishaq fell ill and feared Ahmad would seek revenge. Instead, Imam Ahmad visited him and prayed for his recovery. When asked why he would pray for someone who had harmed him, Imam Ahmad replied, 'I have forgiven him for Allah's sake, and we should not wish ill upon any Muslim.'",
+source: "Manaqib al-Imam Ahmad",
+lessons: "True greatness lies in forgiveness, not revenge. Holding grudges harms the soul more than the person who wronged you.",
+tags: ["Forgiveness", "Character", "Taqwa"]
+},
+{
+title: "Salman al-Farisi's Search for Truth",
+figures: "Salman al-Farisi",
+content: "Salman al-Farisi traveled from Persia through the Byzantine Empire and into Arabia, serving various masters and enduring hardship for years, all in search of the true religion. He had been told by a Christian monk to look for a prophet who would appear in Arabia with specific signs. When he finally met the Prophet Muhammad ﷺ, he recognized the signs of prophethood and embraced Islam. His journey demonstrates the lengths to which one should go in the pursuit of truth.",
+source: "Sahih al-Bukhari",
+lessons: "The sincere seeker of truth will be guided despite obstacles. Truth is worth whatever hardship one must endure to attain it.",
+tags: ["Seeking Knowledge", "Perseverance", "Faith"]
+},
+{
+title: "Bilal's Steadfastness Under Torture",
+figures: "Bilal ibn Rabah",
+content: "When Bilal accepted Islam in Makkah, his master Umayyah bin Khalaf tortured him by laying him on the scorching desert sand with a heavy rock on his chest, demanding he renounce Islam. Despite this unbearable pain, Bilal would only respond 'Ahad, Ahad' (One, One), affirming the oneness of Allah. Abu Bakr eventually purchased and freed him, and Bilal became the first muezzin (caller to prayer) in Islam.",
+source: "Sirat Ibn Hisham",
+lessons: "Faith can give one strength to endure the most severe trials. Physical torture cannot break spiritual conviction.",
+tags: ["Patience", "Faith", "Courage"]
+},
+{
+title: "Hasan al-Basri's Letter to Umar ibn Abdul Aziz",
+figures: "Hasan al-Basri, Umar ibn Abdul Aziz",
+content: "When Umar ibn Abdul Aziz became Caliph, he wrote to Hasan al-Basri asking for advice. Hasan wrote back: 'Know that death will come to you unexpectedly, so prepare for it at all times. Remember that you are not the first Caliph, nor will you be the last. Be mindful that your position places a great responsibility on you before Allah.' This forthright counsel demonstrated the scholars' duty to advise rulers sincerely.",
+source: "Hilyat al-Awliya",
+lessons: "Those in authority need sincere advice. Knowledge comes with the responsibility to speak truth to power.",
+tags: ["Nasihah", "Leadership", "Taqwa"]
+},
+{
+title: "Abdullah ibn al-Mubarak Between Two Armies",
+figures: "Abdullah ibn al-Mubarak",
+content: "Abdullah ibn al-Mubarak was renowned for combining jihad, worship, knowledge, and generosity. Once, while in battle against the Byzantine Empire, the Muslim and Byzantine armies lined up facing each other. A Byzantine warrior stepped forward challenging the Muslims to a duel. A Muslim warrior accepted and they fought until the Muslim was victorious. As he removed his helmet, people recognized him as Abdullah ibn al-Mubarak, the great scholar who had traveled from Khurasan to defend the frontier.",
+source: "Siyar A'lam an-Nubala",
+lessons: "Knowledge and action should go hand in hand. The scholars of the past exemplified what they taught.",
+tags: ["Courage", "Ilm", "Jihad"]
+},
+{
+title: "Ibrahim ibn Adham Renounces His Kingdom",
+figures: "Ibrahim ibn Adham",
+content: "Ibrahim ibn Adham was the king of Balkh (in modern-day Afghanistan). While hunting one day, he heard a voice saying, 'You were not created for this, nor were you commanded to do this.' Startled, he looked around and saw no one. The voice came again from his saddle, 'Is it for this you were created? Is this what you were commanded to do?' This divine warning led him to renounce his kingdom and wealth to become an ascetic devoted to worship and knowledge.",
+source: "Hilyat al-Awliya",
+lessons: "Worldly position and wealth are temporary distractions. True success lies in answering one's purpose of creation.",
+tags: ["Zuhd", "Tawbah", "Taqwa"]
+},
+{
+title: "Uwais al-Qarni's Devotion to His Mother",
+figures: "Uwais al-Qarni",
+content: "Uwais al-Qarni, a Yemeni shepherd, embraced Islam during the Prophet's lifetime but never met him because he was caring for his elderly mother. The Prophet ﷺ told Umar and Ali that Uwais was the best of the Tabi'in (followers of the Companions) and instructed them to ask for his prayers when they met him. Despite never meeting the Prophet ﷺ, his devotion to his mother elevated his status in Islam.",
+source: "Sahih Muslim",
+lessons: "Dutifulness to parents can be more virtuous than other seemingly greater deeds. Recognition comes from Allah, not from people's awareness of your actions.",
+tags: ["Family", "Birr al-Walidayn", "Sincerity"]
+},
+{
+title: "Rabia al-Adawiyya's Pure Love of Allah",
+figures: "Rabia al-Adawiyya",
+content: "Rabia al-Adawiyya was once seen carrying a torch in one hand and a bucket of water in the other. When asked what she was doing, she replied, 'I want to set fire to Paradise with this torch and pour water on Hell with this bucket, so that people worship Allah purely for His sake, not out of desire for Paradise or fear of Hell.' Her statement exemplified the highest form of devotion-worshipping Allah out of love, not for reward or fear of punishment.",
+source: "Tazkirat al-Awliya",
+lessons: "The highest level of worship is that done purely for Allah's sake. Love of Allah transcends desire for reward or fear of punishment.",
+tags: ["Love", "Ihsan", "Spirituality"]
+},
+{
+title: "Imam al-Bukhari's Exceptional Memory",
+figures: "Imam Muhammad ibn Ismail al-Bukhari",
+content: "In Baghdad, ten hadith scholars decided to test Imam al-Bukhari's memory. Each recited ten hadiths with altered chains of narration. After they finished, al-Bukhari addressed each scholar saying, 'As for your first hadith, you said this, but it is actually that...' He corrected all one hundred hadiths from memory, restoring each to its proper narration. This demonstration of his photographic memory and vast knowledge amazed everyone present.",
+source: "Tarikh Baghdad",
+lessons: "Allah grants extraordinary abilities to those who dedicate themselves to preserving His religion. Hard work and sincere intention lead to divine assistance.",
+tags: ["Ilm", "Hadith", "Memory"]
+},
+{
+title: "Imam an-Nawawi's Asceticism",
+figures: "Imam an-Nawawi",
+content: "Despite his vast knowledge and fame, Imam an-Nawawi lived in extreme asceticism. He ate only once a day, slept very little, often on books in his study rather than a bed, and owned almost nothing. When the Sultan offered him gifts and a stipend, he refused saying, 'I fear that on the Day of Judgment, Allah will ask me why I took from the public treasury when I had no need.' He devoted his entire life to knowledge and worship, completing works that Muslims benefit from to this day.",
+source: "Tabaqat ash-Shafi'iyya",
+lessons: "Worldly detachment facilitates spiritual and intellectual achievement. The most impactful scholars often lived the simplest lives.",
+tags: ["Zuhd", "Ilm", "Sincerity"]
+},
+{
+title: "Ibn Taymiyyah's Courage in Prison",
+figures: "Ibn Taymiyyah",
+content: "When Ibn Taymiyyah was imprisoned in the citadel of Damascus, the authorities took away his books and writing materials, thinking this would be the harshest punishment for the scholar. Instead, Ibn Taymiyyah remarked, 'My prison is a place of worship, my exile is a chance to travel, and if they kill me, it will be martyrdom.' During this imprisonment, he wrote several important works, including a commentary on the Quran, using charcoal on available scraps of paper.",
+source: "Al-A'lam al-'Aliyya",
+lessons: "External constraints cannot imprison a mind devoted to knowledge and truth. Trials can become opportunities for unprecedented achievement.",
+tags: ["Patience", "Resilience", "Knowledge"]
+},
+{
+title: "Ibn al-Jawzi's Productive Life",
+figures: "Ibn al-Jawzi",
+content: "Ibn al-Jawzi authored over three hundred books on various Islamic sciences. When asked how he managed to write so prolifically, he replied, 'I have not wasted a single moment of my life. I write with my hand, dictate with my tongue, reflect with my heart, and even when I sleep, I organize my next composition in my dreams.' His disciplined approach to time management allowed him to leave a legacy of knowledge that benefits Muslims centuries after his death.",
+source: "Sayd al-Khatir",
+lessons: "Time is the most precious resource; using it wisely leads to extraordinary achievement. Knowledge that benefits others continues to reward its author even after death.",
+tags: ["Time Management", "Productivity", "Knowledge"]
+},
+{
+title: "Imam al-Ghazali's Spiritual Crisis and Renewal",
+figures: "Imam Abu Hamid al-Ghazali",
+content: "At the height of his academic career in Baghdad, Imam al-Ghazali suffered a spiritual crisis that left him unable to speak or teach. Realizing his knowledge had not transformed his heart, he abandoned his prestigious position, distributed his wealth, and spent ten years in seclusion and spiritual purification. This journey led to his masterpiece, 'Ihya Ulum al-Din' (Revival of Religious Sciences), which bridges intellectual and spiritual approaches to Islam.",
+source: "Al-Munqidh min al-Dalal (Deliverance from Error)",
+lessons: "Knowledge without spiritual purification is incomplete. Sometimes one must abandon status and comfort to find spiritual truth.",
+tags: ["Spirituality", "Tawbah", "Self-reflection"]
+},
+{
+title: "Imam ash-Shatibi and the Flood",
+figures: "Imam ash-Shatibi",
+content: "When a devastating flood hit Granada, destroying many homes and books, Imam ash-Shatibi was asked about the loss of his library. He calmly replied, 'I have lost nothing of value, for whatever was in those books is now in my heart.' He then proceeded to rewrite many of his works from memory, demonstrating that true knowledge resides within the scholar, not merely on paper.",
+source: "Various biographical accounts",
+lessons: "True knowledge becomes part of one's being, not just information stored externally. Material loss cannot take away what has been internalized.",
+tags: ["Knowledge", "Memory", "Resilience"]
+},
+{
+title: "Abdullah ibn Abbas's Humility as a Scholar",
+figures: "Abdullah ibn Abbas",
+content: "Despite being one of the most knowledgeable companions and the 'Interpreter of the Quran,' Ibn Abbas would hold the stirrup of Zayd ibn Thabit's mount out of respect for his knowledge. When asked why he, the cousin of the Prophet ﷺ, would do this for someone else, Ibn Abbas replied, 'This is how we were taught to treat our scholars.' This demonstrated how the early Muslims valued knowledge above lineage or status.",
+source: "Various historical accounts",
+lessons: "Knowledge deserves respect regardless of who possesses it. Humility is the adornment of the truly knowledgeable.",
+tags: ["Humility", "Respect", "Knowledge"]
+},
+{
+title: "Sufyan ath-Thawri Flees from Leadership",
+figures: "Sufyan ath-Thawri",
+content: "When Sufyan ath-Thawri, one of the greatest scholars of his time, learned that the Caliph intended to appoint him as a judge, he immediately fled from Kufa. He spent the rest of his life in hiding, moving from place to place to avoid being found and forced into an official position. When asked why he ran from such an honor, he said, 'The one who enters upon a sultan will be tested, and the one who mixes with them will not remain safe.'",
+source: "Hilyat al-Awliya",
+lessons: "Proximity to power often corrupts religious integrity. Sometimes refusing leadership demonstrates greater character than accepting it.",
+tags: ["Zuhd", "Integrity", "Leadership"]
+},
+{
+title: "Imam Malik's Stance Against Forced Bay'ah",
+figures: "Imam Malik ibn Anas",
+content: "When the Abbasid Caliph al-Mansur wanted to impose Imam Malik's legal compilation, Al-Muwatta, as the official law throughout the Islamic empire, Malik refused saying, 'The companions of the Prophet ﷺ dispersed throughout the lands and people received knowledge from them. Each city has its own established practices. Do not force people to follow one opinion.' This demonstrated his respect for scholarly diversity and opposition to political interference in religious matters.",
+source: "Various historical accounts",
+lessons: "Diversity of scholarly opinion is a mercy to the community. Religious knowledge should not be manipulated for political purposes.",
+tags: ["Knowledge", "Integrity", "Leadership"]
+},
+{
+title: "Abu Darda's Balance Between Worship and Family",
+figures: "Abu Darda, Salman al-Farisi",
+content: "When Salman al-Farisi visited Abu Darda, he found Abu Darda's wife in a disheveled state. When asked why, she explained that her husband was constantly engaged in worship and had no time for worldly matters. When Abu Darda returned, he prepared food for Salman, who refused to eat until Abu Darda joined him. During the night, Abu Darda rose to pray, but Salman told him to sleep. Near dawn, Salman said, 'Now get up and pray.' After prayer, Salman advised him, 'Your Lord has a right over you, your soul has a right over you, and your family has a right over you; so give each their due right.'",
+source: "Sahih al-Bukhari",
+lessons: "Balance is essential in religious practice. Fulfilling all rights is better than excessive devotion to one aspect of religion at the expense of others.",
+tags: ["Balance", "Family", "Ibadah"]
+},
+{
+title: "Imam Ahmad's Son and Stolen Gold",
+figures: "Abdullah ibn Ahmad ibn Hanbal, Imam Ahmad ibn Hanbal",
+content: "Abdullah, the son of Imam Ahmad, once found a purse containing gold dinars in the street. He took it home and told his father, who instructed him to find its owner by announcing it in public gatherings. After a year of searching without success, Imam Ahmad told his son to give it in charity. Years later, when Abdullah inherited his father's house, he found that same purse hidden in a crack in the wall. His father had refused to benefit from the found money, even indirectly through his son's inheritance.",
+source: "Manaqib al-Imam Ahmad",
+lessons: "Scrupulousness (wara') means avoiding even the slightest doubtful matter. True piety extends beyond following basic rules to the highest standards of integrity.",
+tags: ["Wara'", "Integrity", "Wealth"]
+},
+{
+title: "Imam ash-Shafi'i and Imam Ahmad's Friendship",
+figures: "Imam ash-Shafi'i, Imam Ahmad ibn Hanbal",
+content: "When Imam ash-Shafi'i first met the young Ahmad ibn Hanbal in Makkah, he was impressed by his knowledge and piety. Their friendship grew, with Shafi'i saying, 'I left Baghdad and did not leave behind anyone more virtuous, more knowledgeable, more pious, and more learned than Ahmad ibn Hanbal.' Years later, when Imam Ahmad was imprisoned during the Mihna, Imam ash-Shafi'i continued to support him from afar, saying, 'If it were not for Ahmad standing firm, Islam would have collapsed.'",
+source: "Manaqib al-Imam Ahmad",
+lessons: "True scholars recognize and respect each other's merits. Friendship based on shared religious values transcends differences in approach or methodology.",
+tags: ["Brotherhood", "Knowledge", "Mutual Respect"]
+},
+{
+title: "Umar ibn Abdul Aziz Returns the Necklace",
+figures: "Umar ibn Abdul Aziz, Fatima bint Abdul Malik",
+content: "When Umar ibn Abdul Aziz became Caliph, he insisted on separating public treasury funds from his personal wealth. One evening, his wife Fatima (daughter of the previous Caliph) wore a valuable necklace that had been given to her by her father from the state treasury. Umar saw it and asked where it came from. Upon learning its origin, he said, 'Either return it to the public treasury or I will have to leave you, for I cannot have in my house what belongs to the Muslims.' She chose to return the necklace rather than lose her husband.",
+source: "Sirat Umar ibn Abdul Aziz",
+lessons: "Public resources must be protected from personal use, even by a ruler's family. True leadership begins with personal integrity in the home.",
+tags: ["Leadership", "Integrity", "Public Trust"]
+},
+{
+title: "Ibn Sina's Learning Method",
+figures: "Ibn Sina (Avicenna)",
+content: "Ibn Sina described his educational journey saying, 'When I found a difficult problem, I would go to the mosque, pray, and supplicate to the Creator to unlock for me what had been problematic. At night, I would return home, place a lamp before me, and busy myself with reading and writing. Whenever sleep overcame me or I felt weakness, I would drink a cup of something strengthening and return to reading. Thus I continued until I mastered logic, natural sciences, and mathematics.' This disciplined approach led him to become one of history's greatest physicians and philosophers.",
+source: "Autobiography of Ibn Sina",
+lessons: "Combining prayer with diligent effort leads to intellectual breakthroughs. Discipline and perseverance are essential to master complex subjects.",
+tags: ["Knowledge", "Discipline", "Prayer"]
+}
+];
+
+// Check if stories already exist
+const existingStories = await db1.getAll('stories');
+if (existingStories.length <= 1) { // Only add samples if database is nearly empty
+console.log("Adding sample stories...");
+for (const story of sampleStories) {
+story.date = new Date().toISOString();
+await db1.add('stories', story);
+}
+console.log("Sample stories added successfully!");
+// Refresh the display
+storiesCtrl.loadStories();
+}
+}
+
+// Call the function after initialization
+setTimeout(addSampleStories, 1000); // Slight delay to ensure DB is ready
+    
+
+    </script>
+</body>
+</html>

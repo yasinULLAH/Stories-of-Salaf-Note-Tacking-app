@@ -1,0 +1,2281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salaf Stories Archive</title>
+    <meta name="author" content="Yasin Ullah, Pakistani">
+    <style>
+        /* --- Global Styles --- */
+        :root {
+            --color-parchment: #f5f0e1;
+            --color-ink: #333;
+            --color-wood: #6b4f4f;
+            --color-glow-blue: #00ffff;
+            --color-glow-green: #00ff00;
+            --color-accent: #a0522d; /* Sienna */
+            --color-border: #d2b48c; /* Tan */
+            --color-background: var(--color-parchment);
+            --color-text: var(--color-ink);
+            --font-serif: 'Gabriela', 'Georgia', serif;
+            --font-sans-serif: 'Orbitron', 'Arial', sans-serif;
+            --padding-main: 20px;
+            --border-radius: 5px;
+            --box-shadow-glow-blue: 0 0 8px var(--color-glow-blue);
+            --box-shadow-glow-green: 0 0 8px var(--color-glow-green);
+            --box-shadow-glow-accent: 0 0 8px rgba(160, 82, 45, 0.5);
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Gabriela&family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            font-family: var(--font-serif);
+            line-height: 1.6;
+            color: var(--color-text);
+            background-color: var(--color-background);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #app {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--color-wood);
+            color: var(--color-parchment);
+            padding: 15px var(--padding-main);
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-family: var(--font-sans-serif);
+            position: relative;
+            z-index: 10;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            text-shadow: var(--box-shadow-glow-blue);
+        }
+
+        nav {
+            background-color: var(--color-border);
+            padding: 10px var(--padding-main);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 9;
+        }
+
+        nav button {
+            background-color: var(--color-accent);
+            color: var(--color-parchment);
+            border: none;
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: var(--font-sans-serif);
+            font-weight: bold;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        nav button:hover {
+            background-color: #8B4513; /* SaddleBrown */
+            box-shadow: var(--box-shadow-glow-blue);
+        }
+
+        main {
+    flex-grow: 3;
+    padding: var(--padding-main);
+    max-width: 1269px !important;
+    margin: 40px 19%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: var(--border-radius);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+        .app-section {
+            display: none; /* Hidden by default */
+        }
+
+        .app-section.active {
+            display: block;
+        }
+
+        footer {
+            background-color: var(--color-wood);
+            color: var(--color-parchment);
+            text-align: center;
+            padding: 15px var(--padding-main);
+            margin-top: 20px;
+            font-size: 0.9em;
+            font-family: var(--font-sans-serif);
+        }
+
+        /* --- Form Styles --- */
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: var(--color-wood);
+        }
+
+        form input[type="text"],
+        form textarea,
+        form select {
+            width: calc(100% - 22px); /* Adjust for padding and border */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-family: var(--font-serif);
+            font-size: 1em;
+            background-color: var(--color-parchment);
+            color: var(--color-ink);
+        }
+
+         form input[type="text"]:focus,
+         form textarea:focus,
+         form select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: var(--box-shadow-glow-accent);
+         }
+
+        form button {
+            background-color: var(--color-glow-green);
+            color: var(--color-ink);
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: var(--font-sans-serif);
+            font-weight: bold;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #90ee90; /* LightGreen */
+            box-shadow: var(--box-shadow-glow-green);
+        }
+
+        .tag-input-container {
+            margin-bottom: 15px;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .tag {
+            background-color: var(--color-accent);
+            color: var(--color-parchment);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-family: var(--font-sans-serif);
+        }
+
+        .tag .remove-tag {
+            margin-left: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- List Styles --- */
+        .story-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .story-item {
+            background-color: rgba(var(--color-wood), 0.1); /* Semi-transparent wood */
+            border: 1px solid var(--color-border);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .story-item:hover {
+             background-color: rgba(var(--color-wood), 0.2);
+             box-shadow: 0 0 5px var(--color-glow-blue);
+        }
+
+        .story-item h3 {
+            margin-top: 0;
+            color: var(--color-accent);
+            font-family: var(--font-sans-serif);
+            font-size: 1.2em;
+        }
+
+        .story-item p {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: var(--color-ink);
+        }
+
+        .story-item .tags {
+             font-size: 0.8em;
+             color: var(--color-wood);
+             margin-top: 5px;
+        }
+
+        /* --- Detail View Styles --- */
+        .story-detail h2 {
+             color: var(--color-wood);
+             font-family: var(--font-sans-serif);
+             border-bottom: 2px solid var(--color-border);
+             padding-bottom: 10px;
+             margin-bottom: 15px;
+        }
+
+        .story-detail p strong {
+            color: var(--color-accent);
+        }
+
+        .story-detail pre {
+            background-color: rgba(var(--color-border), 0.3);
+            border: 1px dashed var(--color-accent);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            white-space: pre-wrap; /* Handle long lines */
+            word-wrap: break-word;
+            font-family: var(--font-serif);
+            font-size: 1em;
+            color: var(--color-ink);
+        }
+
+        .story-detail .actions button {
+            margin-right: 10px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-family: var(--font-sans-serif);
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .story-detail .actions .edit-button {
+            background-color: var(--color-glow-blue);
+            color: var(--color-ink);
+        }
+         .story-detail .actions .edit-button:hover {
+             background-color: #afeeee; /* PaleTurquoise */
+             box-shadow: var(--box-shadow-glow-blue);
+         }
+
+        .story-detail .actions .delete-button {
+            background-color: #ff6347; /* Tomato */
+            color: var(--color-parchment);
+        }
+         .story-detail .actions .delete-button:hover {
+             background-color: #ff4500; /* OrangeRed */
+             box-shadow: 0 0 8px #ff6347;
+         }
+
+         .story-detail .actions .add-to-collection-button {
+             background-color: var(--color-glow-green);
+             color: var(--color-ink);
+         }
+         .story-detail .actions .add-to-collection-button:hover {
+             background-color: #90ee90; /* LightGreen */
+             box-shadow: var(--box-shadow-glow-green);
+         }
+
+
+        /* --- Notes Styles --- */
+        .notes-section h3 {
+            margin-top: 20px;
+            border-top: 1px dashed var(--color-border);
+            padding-top: 15px;
+            color: var(--color-wood);
+            font-family: var(--font-sans-serif);
+        }
+
+        .note-item {
+            background-color: rgba(var(--color-accent), 0.1);
+            border: 1px solid rgba(var(--color-accent), 0.3);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: var(--border-radius);
+            font-size: 0.9em;
+            position: relative;
+        }
+
+        .note-item .note-text {
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .note-item .note-meta {
+            font-size: 0.8em;
+            color: var(--color-wood);
+            text-align: right;
+        }
+
+        .note-item .note-actions {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .note-item .note-actions button {
+            background: none;
+            border: none;
+            color: var(--color-wood);
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-left: 5px;
+        }
+         .note-item .note-actions button:hover {
+             color: var(--color-accent);
+         }
+
+        .add-note-form textarea {
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+        }
+
+        .add-note-form button {
+            padding: 8px 15px;
+            background-color: var(--color-glow-green);
+            color: var(--color-ink);
+        }
+         .add-note-form button:hover {
+             background-color: #90ee90;
+             box-shadow: var(--box-shadow-glow-green);
+         }
+
+        /* --- Search Styles --- */
+        .search-form input[type="text"] {
+            width: calc(100% - 22px);
+            margin-bottom: 10px;
+        }
+
+        .search-results .story-item {
+            cursor: pointer;
+        }
+
+        /* --- Collections Styles --- */
+        .collection-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .collection-item {
+            background-color: rgba(var(--color-glow-blue), 0.1);
+            border: 1px solid rgba(var(--color-glow-blue), 0.3);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+         .collection-item:hover {
+             background-color: rgba(var(--color-glow-blue), 0.2);
+             box-shadow: 0 0 5px var(--color-glow-blue);
+         }
+
+        .collection-item h3 {
+            margin-top: 0;
+            color: var(--color-wood);
+            font-family: var(--font-sans-serif);
+            font-size: 1.1em;
+        }
+
+        .collection-detail h2 {
+             color: var(--color-wood);
+             font-family: var(--font-sans-serif);
+             border-bottom: 2px solid var(--color-border);
+             padding-bottom: 10px;
+             margin-bottom: 15px;
+        }
+
+        .collection-detail .story-list .story-item {
+             background-color: rgba(var(--color-wood), 0.05); /* Lighter */
+        }
+         .collection-detail .story-list .story-item button {
+             margin-left: 10px;
+             padding: 3px 8px;
+             font-size: 0.8em;
+             background-color: #ff6347;
+             color: var(--color-parchment);
+             border: none;
+             border-radius: var(--border-radius);
+             cursor: pointer;
+         }
+
+
+        /* --- Story of the Day Styles --- */
+        #story-of-the-day-section {
+            background-color: rgba(var(--color-glow-green), 0.1);
+            border: 1px solid rgba(var(--color-glow-green), 0.3);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        #story-of-the-day-section h2 {
+            color: var(--color-wood);
+            font-family: var(--font-sans-serif);
+            margin-top: 0;
+        }
+
+        #story-of-the-day-content {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--color-ink);
+        }
+
+        #story-of-the-day-content h3 {
+             color: var(--color-accent);
+             margin-bottom: 5px;
+             font-family: var(--font-sans-serif);
+        }
+
+        #story-of-the-day-content p {
+            margin-bottom: 5px;
+        }
+
+        #story-of-the-day-content button {
+             margin-top: 10px;
+             padding: 8px 15px;
+             background-color: var(--color-glow-blue);
+             color: var(--color-ink);
+             border: none;
+             border-radius: var(--border-radius);
+             cursor: pointer;
+             font-family: var(--font-sans-serif);
+             font-weight: bold;
+             transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+         #story-of-the-day-content button:hover {
+             background-color: #afeeee;
+             box-shadow: var(--box-shadow-glow-blue);
+         }
+
+
+        /* --- Backup/Restore Styles --- */
+        #backup-restore-section input[type="file"] {
+            margin-bottom: 15px;
+        }
+
+        #backup-restore-section button {
+             margin-right: 10px;
+             padding: 8px 15px;
+             border: none;
+             border-radius: var(--border-radius);
+             cursor: pointer;
+             font-family: var(--font-sans-serif);
+             font-weight: bold;
+             transition: background-color 0.3s ease;
+        }
+
+        #backup-restore-section .backup-button {
+             background-color: var(--color-glow-blue);
+             color: var(--color-ink);
+        }
+        #backup-restore-section .backup-button:hover {
+            background-color: #afeeee;
+            box-shadow: var(--box-shadow-glow-blue);
+        }
+
+        #backup-restore-section .restore-button {
+             background-color: var(--color-glow-green);
+             color: var(--color-ink);
+        }
+         #backup-restore-section .restore-button:hover {
+             background-color: #90ee90;
+             box-shadow: var(--box-shadow-glow-green);
+         }
+
+        /* --- Utility & Responsive --- */
+        .hidden {
+            display: none !important;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: var(--border-radius);
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            nav button {
+                text-align: center;
+            }
+
+            main {
+                padding: 10px;
+                margin: 10px auto;
+            }
+
+            form input[type="text"],
+            form textarea,
+            form select {
+                 width: calc(100% - 20px); /* Adjust for smaller padding */
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Salaf Stories Archive</h1>
+        </header>
+
+        <nav>
+            <button data-section="story-of-the-day-section">Story of the Day</button>
+            <button data-section="add-story-section">Add New Story</button>
+            <button data-section="view-stories-section">View All Stories</button>
+            <button data-section="search-section">Search Stories</button>
+            <button data-section="collections-section">Collections</button>
+            <button data-section="backup-restore-section">Backup / Restore</button>
+        </nav>
+
+        <main>
+            <section id="story-of-the-day-section" class="app-section active">
+                <h2>Story of the Day</h2>
+                <div id="story-of-the-day-content">
+                    <p>Loading story...</p>
+                </div>
+            </section>
+
+            <section id="add-story-section" class="app-section">
+                <h2>Add New Story</h2>
+                <form id="add-story-form">
+                    <input type="hidden" id="story-id">
+                    <label for="story-title">Title:</label>
+                    <input type="text" id="story-title" required>
+
+                    <label for="story-figures">Main Figures (comma-separated):</label>
+                    <input type="text" id="story-figures">
+
+                    <label for="story-text">Story Text:</label>
+                    <textarea id="story-text" rows="10" required></textarea>
+
+                    <label for="story-source">Source (if known):</label>
+                    <input type="text" id="story-source">
+
+                    <label for="story-lessons">Lessons Learned:</label>
+                    <textarea id="story-lessons" rows="5"></textarea>
+
+                    <div class="tag-input-container">
+                        <label for="story-tags-input">Tags / Themes (e.g., Zuhd, Ilm, Ibadah):</label>
+                        <input type="text" id="story-tags-input" placeholder="Type tag and press Enter or comma">
+                        <div id="story-tags-list" class="tag-list">
+                            <!-- Added tags will appear here -->
+                        </div>
+                    </div>
+
+                    <button type="submit">Save Story</button>
+                    <button type="button" id="cancel-edit-button" class="hidden">Cancel Edit</button>
+                </form>
+            </section>
+
+            <section id="view-stories-section" class="app-section">
+                <h2>All Stories</h2>
+                <ul id="stories-list" class="story-list">
+                    <!-- Stories will be loaded here -->
+                </ul>
+            </section>
+
+            <section id="view-story-detail-section" class="app-section">
+                <div class="story-detail">
+                    <h2 id="detail-title"></h2>
+                    <p><strong>Figures:</strong> <span id="detail-figures"></span></p>
+                    <p><strong>Source:</strong> <span id="detail-source"></span></p>
+                    <p><strong>Tags:</strong> <span id="detail-tags"></span></p>
+                    <p><strong>Story:</strong></p>
+                    <pre id="detail-text"></pre>
+                    <p><strong>Lessons:</strong></p>
+                    <pre id="detail-lessons"></pre>
+
+                    <div class="actions">
+                        <button class="edit-button">Edit Story</button>
+                        <button class="delete-button">Delete Story</button>
+                        <button class="add-to-collection-button">Add to Collection</button>
+                    </div>
+
+                    <div class="notes-section">
+                        <h3>Personal Notes</h3>
+                        <div id="notes-list">
+                            <!-- Notes will be loaded here -->
+                        </div>
+                        <div class="add-note-form">
+                            <h4>Add New Note</h4>
+                            <textarea id="new-note-text" rows="3" placeholder="Write your reflection here..."></textarea>
+                            <button id="save-note-button">Add Note</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="search-section" class="app-section">
+                <h2>Search Stories</h2>
+                <form id="search-form">
+                    <label for="search-input">Search Keywords (Title, Figures, Story, Lessons, Source, Tags):</label>
+                    <input type="text" id="search-input" placeholder="Enter keywords...">
+                </form>
+                <div id="search-results" class="story-list">
+                    <!-- Search results will appear here -->
+                </div>
+            </section>
+
+            <section id="collections-section" class="app-section">
+                <h2>Collections</h2>
+                <div id="create-collection-form">
+                    <h3>Create New Collection</h3>
+                    <input type="text" id="new-collection-name" placeholder="Collection Name">
+                    <button id="save-collection-button">Create Collection</button>
+                </div>
+                <div id="collections-list-container">
+                    <h3>Your Collections</h3>
+                    <ul id="collections-list" class="collection-list">
+                        <!-- Collections will be loaded here -->
+                    </ul>
+                </div>
+                 <div id="collection-detail-view" class="hidden">
+                     <h2 id="collection-detail-title"></h2>
+                     <ul id="collection-detail-stories" class="story-list">
+                         <!-- Stories in collection will be loaded here -->
+                     </ul>
+                     <button id="delete-collection-button">Delete Collection</button>
+                 </div>
+            </section>
+
+            <section id="backup-restore-section" class="app-section">
+                <h2>Backup / Restore</h2>
+                <div>
+                    <h3>Backup Data</h3>
+                    <p>Download your entire archive as a JSON file.</p>
+                    <button class="backup-button" id="backup-button">Download Backup</button>
+                </div>
+                <div style="margin-top: 20px;">
+                    <h3>Restore Data</h3>
+                    <p>Upload a previously downloaded JSON backup file. This will overwrite existing data.</p>
+                    <input type="file" id="restore-file" accept=".json">
+                    <button class="restore-button" id="restore-button">Restore from File</button>
+                </div>
+                 <div id="backup-restore-message" class="message hidden" style="margin-top: 15px;"></div>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>© 2023 Salaf Stories Archive. Curated by Yasin Ullah, Pakistani.</p>
+        </footer>
+    </div>
+
+    <script>
+        // --- IndexedDB Setup ---
+        const DB_NAME = 'salafStoriesDBa';
+        const DB_VERSION = 3; // Increment version for schema changes
+
+        let db;
+
+        const openDB = () => {
+            return new Promise((resolve, reject) => {
+                if (!('indexedDB' in window)) {
+                    reject(new Error('IndexedDB is not supported by this browser.'));
+                    return;
+                }
+
+                const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+                request.onupgradeneeded = (event) => {
+                    db = event.target.result;
+                    // Create object stores if they don't exist
+                    if (!db.objectStoreNames.contains('stories')) {
+                        const storyStore = db.createObjectStore('stories', { keyPath: 'id', autoIncrement: true });
+                        storyStore.createIndex('figures', 'figures', { multiEntry: true });
+                        storyStore.createIndex('tags', 'tags', { multiEntry: true });
+                        storyStore.createIndex('title', 'title', { unique: false });
+                    }
+                     if (!db.objectStoreNames.contains('tags')) {
+                         db.createObjectStore('tags', { keyPath: 'name' }); // Master list of tag names
+                     }
+                    if (!db.objectStoreNames.contains('collections')) {
+                        const collectionStore = db.createObjectStore('collections', { keyPath: 'id', autoIncrement: true });
+                        collectionStore.createIndex('name', 'name', { unique: true });
+                        collectionStore.createIndex('storyIds', 'storyIds', { multiEntry: true });
+                    }
+                    if (!db.objectStoreNames.contains('notes')) {
+                        const noteStore = db.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
+                        noteStore.createIndex('storyId', 'storyId');
+                    }
+                     // Add new object store for app state
+                     if (!db.objectStoreNames.contains('appState')) {
+                          db.createObjectStore('appState', { keyPath: 'key' });
+                     }
+                };
+
+                request.onsuccess = (event) => {
+                    db = event.target.result;
+                    console.log('IndexedDB opened successfully');
+                    resolve(db);
+                };
+
+                request.onerror = (event) => {
+                    console.error('IndexedDB error:', event.target.error);
+                    reject(event.target.error);
+                };
+            });
+        };
+
+        const getObjectStore = (storeName, mode) => {
+             if (!db) {
+                 throw new Error('IndexedDB not initialized.');
+             }
+            const transaction = db.transaction(storeName, mode);
+            transaction.onerror = (event) => console.error(`Transaction error on ${storeName}:`, event.target.error);
+            transaction.onabort = (event) => console.warn(`Transaction aborted on ${storeName}:`, event.target.error);
+            return transaction.objectStore(storeName);
+        };
+
+        // --- Data Management Functions ---
+
+        // Stories
+        const addStory = (story) => {
+    return new Promise((resolve, reject) => {
+        try {
+            const store = getObjectStore('stories', 'readwrite');
+            story.id = story.id || Date.now().toString(); // Add unique ID if none exists
+            story.createdAt = new Date().toISOString();
+            story.updatedAt = new Date().toISOString();
+            const request = store.add(story);
+            request.onsuccess = () => resolve(request.result);
+            request.onerror = (event) => reject(event.target.error);
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+        const getAllStories = () => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const store = getObjectStore('stories', 'readonly');
+                    const request = store.getAll();
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = (event) => reject(event.target.error);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        };
+
+         const getStoryById = (id) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('stories', 'readonly');
+                     const request = store.get(id);
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+        const updateStory = (story) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const store = getObjectStore('stories', 'readwrite');
+                    story.updatedAt = new Date().toISOString();
+                    const request = store.put(story);
+                    request.onsuccess = () => resolve(request.result);
+                    request.onerror = (event) => reject(event.target.error);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        };
+
+        const deleteStory = (id) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const store = getObjectStore('stories', 'readwrite');
+                    const request = store.delete(id);
+                    request.onsuccess = () => resolve();
+                    request.onerror = (event) => reject(event.target.error);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        };
+
+        // Tags (Master List)
+         const addTag = (tagName) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('tags', 'readwrite');
+                     const tag = { name: tagName.trim().toLowerCase() };
+                     if (!tag.name) {
+                         reject(new Error("Tag name cannot be empty."));
+                         return;
+                     }
+                     const request = store.add(tag); // add will fail if key exists
+                     request.onsuccess = () => resolve(tag);
+                     request.onerror = (event) => {
+                         if (event.target.error.name === 'ConstraintError') {
+                             // Tag already exists, resolve successfully
+                             resolve(tag);
+                         } else {
+                             reject(event.target.error);
+                         }
+                     };
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const getAllTags = () => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('tags', 'readonly');
+                     const request = store.getAll();
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+        // Notes
+         const addNote = (storyId, text) => {
+             return new Promise((resolve, reject) => {
+                 if (!text || !text.trim()) {
+                     reject(new Error("Note text cannot be empty."));
+                     return;
+                 }
+                 try {
+                     const store = getObjectStore('notes', 'readwrite');
+                     const note = {
+                         storyId: storyId,
+                         text: text.trim(),
+                         createdAt: new Date().toISOString(),
+                         updatedAt: new Date().toISOString()
+                     };
+                     const request = store.add(note);
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const getNotesByStoryId = (storyId) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('notes', 'readonly');
+                     const index = store.index('storyId');
+                     const request = index.getAll(storyId);
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const updateNote = (note) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('notes', 'readwrite');
+                     note.updatedAt = new Date().toISOString();
+                     const request = store.put(note);
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const deleteNote = (noteId) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('notes', 'readwrite');
+                     const request = store.delete(noteId);
+                     request.onsuccess = () => resolve();
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+
+        // Collections
+         const addCollection = (name) => {
+             return new Promise((resolve, reject) => {
+                 if (!name || !name.trim()) {
+                     reject(new Error("Collection name cannot be empty."));
+                     return;
+                 }
+                 try {
+                     const store = getObjectStore('collections', 'readwrite');
+                     const collection = {
+                         name: name.trim(),
+                         storyIds: [],
+                         createdAt: new Date().toISOString(),
+                         updatedAt: new Date().toISOString()
+                     };
+                     const request = store.add(collection);
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => {
+                         if (event.target.error.name === 'ConstraintError') {
+                              reject(new Error(`Collection "${name}" already exists.`));
+                         } else {
+                              reject(event.target.error);
+                         }
+                     };
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const getAllCollections = () => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('collections', 'readonly');
+                     const request = store.getAll();
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const getCollectionById = (id) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('collections', 'readonly');
+                     const request = store.get(id);
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const updateCollection = (collection) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('collections', 'readwrite');
+                     collection.updatedAt = new Date().toISOString();
+                     const request = store.put(collection);
+                     request.onsuccess = () => resolve(request.result);
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const deleteCollection = (id) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore('collections', 'readwrite');
+                     const request = store.delete(id);
+                     request.onsuccess = () => resolve();
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+         };
+
+         const addStoryToCollection = async (collectionId, storyId) => {
+             try {
+                 const collection = await getCollectionById(collectionId);
+                 if (collection && !collection.storyIds.includes(storyId)) {
+                     collection.storyIds.push(storyId);
+                     await updateCollection(collection);
+                 }
+             } catch (error) {
+                 console.error('Error adding story to collection:', error);
+                 throw error; // Re-throw to be caught by caller
+             }
+         };
+
+         const removeStoryFromCollection = async (collectionId, storyId) => {
+             try {
+                 const collection = await getCollectionById(collectionId);
+                 if (collection) {
+                     collection.storyIds = collection.storyIds.filter(id => id !== storyId);
+                     await updateCollection(collection);
+                 }
+             } catch (error) {
+                 console.error('Error removing story from collection:', error);
+                 throw error; // Re-throw to be caught by caller
+             }
+         };
+
+        // App State (for Story of the Day)
+        const getAppState = (key) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const store = getObjectStore('appState', 'readonly');
+                    const request = store.get(key);
+                    request.onsuccess = () => resolve(request.result ? request.result.value : null);
+                    request.onerror = (event) => reject(event.target.error);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        };
+
+        const setAppState = (key, value) => {
+            return new Promise((resolve, reject) => {
+                try {
+                    const store = getObjectStore('appState', 'readwrite');
+                    const request = store.put({ key: key, value: value });
+                    request.onsuccess = () => resolve();
+                    request.onerror = (event) => reject(event.target.error);
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        };
+
+
+        // --- UI State Management ---
+        let currentSection = 'story-of-the-day-section';
+        let currentStoryId = null; // For detail view
+        let currentCollectionId = null; // For collection detail view
+
+        const showSection = (sectionId) => {
+            document.querySelectorAll('.app-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            currentSection = sectionId;
+
+            // Specific actions when showing a section
+            if (sectionId === 'view-stories-section') {
+                displayAllStories();
+            } else if (sectionId === 'collections-section') {
+                 displayCollectionsList();
+                 document.getElementById('collection-detail-view').classList.add('hidden');
+                 document.getElementById('collections-list-container').classList.remove('hidden');
+            } else if (sectionId === 'add-story-section') {
+                 resetStoryForm();
+            } else if (sectionId === 'search-section') {
+                 document.getElementById('search-input').value = '';
+                 document.getElementById('search-results').innerHTML = '';
+            } else if (sectionId === 'story-of-the-day-section') {
+                 displayStoryOfTheDay();
+            }
+             // Hide detail views when navigating away unless explicitly going to one
+             if (sectionId !== 'view-story-detail-section') {
+                 currentStoryId = null;
+             }
+              if (sectionId !== 'collections-section') { // Collections section handles its own detail view visibility
+                  currentCollectionId = null;
+              }
+        };
+
+        // --- Render Functions ---
+
+        const renderStoryItem = (story, options = {}) => {
+            const li = document.createElement('li');
+            li.classList.add('story-item');
+            li.dataset.storyId = story.id;
+            li.innerHTML = `
+                <h3>${escapeHTML(story.title || 'Untitled Story')}</h3>
+                <p><strong>Figures:</strong> ${escapeHTML(story.figures ? story.figures.join(', ') : 'N/A')}</p>
+                <p class="tags"><strong>Tags:</strong> ${escapeHTML(story.tags ? story.tags.join(', ') : 'None')}</p>
+            `;
+            li.addEventListener('click', () => {
+                 if (!options.noClick) {
+                    showStoryDetail(story.id);
+                 }
+            });
+            return li;
+        };
+
+         const renderNoteItem = (note) => {
+             const div = document.createElement('div');
+             div.classList.add('note-item');
+             div.dataset.noteId = note.id;
+             div.innerHTML = `
+                 <div class="note-text">${escapeHTML(note.text)}</div>
+                 <div class="note-meta">Added: ${new Date(note.createdAt).toLocaleDateString()}</div>
+                 <div class="note-actions">
+                      <button class="delete-note-button" data-note-id="${note.id}">Delete</button>
+                 </div>
+             `;
+             div.querySelector('.delete-note-button').addEventListener('click', async (e) => {
+                 e.stopPropagation(); // Prevent story item click
+                 if (confirm('Are you sure you want to delete this note?')) {
+                     try {
+                         await deleteNote(note.id);
+                         displayNotesForStory(note.storyId); // Refresh notes list
+                     } catch (error) {
+                         console.error('Error deleting note:', error);
+                         alert('Failed to delete note.');
+                     }
+                 }
+             });
+             return div;
+         };
+
+         const renderCollectionItem = (collection) => {
+             const li = document.createElement('li');
+             li.classList.add('collection-item');
+             li.dataset.collectionId = collection.id;
+             li.innerHTML = `
+                 <h3>${escapeHTML(collection.name)} (${collection.storyIds.length} stories)</h3>
+             `;
+             li.addEventListener('click', () => {
+                 showCollectionDetail(collection.id);
+             });
+             return li;
+         };
+
+        const displayAllStories = async () => {
+            const storiesList = document.getElementById('stories-list');
+            storiesList.innerHTML = ''; // Clear current list
+            try {
+                const stories = await getAllStories();
+                if (stories.length === 0) {
+                    storiesList.innerHTML = '<p>No stories added yet. Go to "Add New Story" to start.</p>';
+                } else {
+                    stories.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by newest first
+                    stories.forEach(story => {
+                        storiesList.appendChild(renderStoryItem(story));
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching stories:', error);
+                storiesList.innerHTML = '<p class="message error">Error loading stories.</p>';
+            }
+        };
+
+        const showStoryDetail = async (storyId) => {
+             currentStoryId = storyId;
+             const detailSection = document.getElementById('view-story-detail-section');
+             const detailTitle = document.getElementById('detail-title');
+             const detailFigures = document.getElementById('detail-figures');
+             const detailSource = document.getElementById('detail-source');
+             const detailTags = document.getElementById('detail-tags');
+             const detailText = document.getElementById('detail-text');
+             const detailLessons = document.getElementById('detail-lessons');
+             const editButton = detailSection.querySelector('.edit-button');
+             const deleteButton = detailSection.querySelector('.delete-button');
+             const addToCollectionButton = detailSection.querySelector('.add-to-collection-button');
+
+             try {
+                 const story = await getStoryById(storyId);
+                 if (!story) {
+                     detailSection.innerHTML = '<p class="message error">Story not found.</p>';
+                     showSection('view-stories-section'); // Go back to list
+                     return;
+                 }
+
+                 detailTitle.textContent = story.title || 'Untitled Story';
+                 detailFigures.textContent = story.figures ? story.figures.join(', ') : 'N/A';
+                 detailSource.textContent = story.source || 'N/A';
+                 detailTags.textContent = story.tags ? story.tags.join(', ') : 'None';
+                 detailText.textContent = story.storyText || '';
+                 detailLessons.textContent = story.lessons || '';
+
+                 editButton.onclick = () => editStory(story.id);
+                 deleteButton.onclick = async () => {
+                     if (confirm(`Are you sure you want to delete "${story.title || 'this story'}"?`)) {
+                          try {
+                              await deleteStory(story.id);
+                              // Also delete associated notes
+                              const notesToDelete = await getNotesByStoryId(story.id);
+                              for (const note of notesToDelete) {
+                                  await deleteNote(note.id);
+                              }
+                              // Also remove from any collections
+                              const collections = await getAllCollections();
+                              for (const col of collections) {
+                                  if (col.storyIds.includes(story.id)) {
+                                      await removeStoryFromCollection(col.id, story.id);
+                                  }
+                              }
+                              alert('Story deleted.');
+                              showSection('view-stories-section'); // Go back to list
+                          } catch (error) {
+                              console.error('Error deleting story:', error);
+                              alert('Failed to delete story.');
+                          }
+                     }
+                 };
+                  addToCollectionButton.onclick = () => showAddToCollectionDialog(story.id);
+
+
+                 // Display notes for this story
+                 displayNotesForStory(storyId);
+
+                 showSection('view-story-detail-section');
+
+             } catch (error) {
+                 console.error('Error fetching story details:', error);
+                 detailSection.innerHTML = '<p class="message error">Error loading story details.</p>';
+             }
+        };
+
+         const displayNotesForStory = async (storyId) => {
+             const notesListDiv = document.getElementById('notes-list');
+             notesListDiv.innerHTML = ''; // Clear current notes
+
+             try {
+                 const notes = await getNotesByStoryId(storyId);
+                 if (notes.length === 0) {
+                     notesListDiv.innerHTML = '<p>No personal notes for this story yet.</p>';
+                 } else {
+                     notes.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)); // Sort by oldest first
+                     notes.forEach(note => {
+                         notesListDiv.appendChild(renderNoteItem(note));
+                     });
+                 }
+             } catch (error) {
+                 console.error('Error fetching notes:', error);
+                 notesListDiv.innerHTML = '<p class="message error">Error loading notes.</p>';
+             }
+         };
+
+         const displayCollectionsList = async () => {
+             const collectionsList = document.getElementById('collections-list');
+             collectionsList.innerHTML = ''; // Clear current list
+             try {
+                 const collections = await getAllCollections();
+                 if (collections.length === 0) {
+                     collectionsList.innerHTML = '<p>No collections created yet.</p>';
+                 } else {
+                     collections.sort((a, b) => a.name.localeCompare(b.name)); // Sort by name
+                     collections.forEach(collection => {
+                         collectionsList.appendChild(renderCollectionItem(collection));
+                     });
+                 }
+             } catch (error) {
+                 console.error('Error fetching collections:', error);
+                 collectionsList.innerHTML = '<p class="message error">Error loading collections.</p>';
+             }
+         };
+
+         const showCollectionDetail = async (collectionId) => {
+             currentCollectionId = collectionId;
+             const detailView = document.getElementById('collection-detail-view');
+             const collectionsListContainer = document.getElementById('collections-list-container');
+             const detailTitle = document.getElementById('collection-detail-title');
+             const detailStoriesList = document.getElementById('collection-detail-stories');
+             const deleteButton = document.getElementById('delete-collection-button');
+
+             detailStoriesList.innerHTML = ''; // Clear current list
+
+             try {
+                 const collection = await getCollectionById(collectionId);
+                 if (!collection) {
+                     collectionsListContainer.classList.remove('hidden');
+                     detailView.classList.add('hidden');
+                     alert('Collection not found.');
+                     displayCollectionsList();
+                     return;
+                 }
+
+                 detailTitle.textContent = collection.name;
+                 deleteButton.onclick = async () => {
+                     if (confirm(`Are you sure you want to delete the collection "${collection.name}"? This will not delete the stories within it.`)) {
+                         try {
+                             await deleteCollection(collection.id);
+                             alert('Collection deleted.');
+                             showSection('collections-section'); // Go back to collections list
+                         } catch (error) {
+                             console.error('Error deleting collection:', error);
+                             alert('Failed to delete collection.');
+                         }
+                     }
+                 };
+
+                 if (collection.storyIds.length === 0) {
+                     detailStoriesList.innerHTML = '<p>This collection is empty.</p>';
+                 } else {
+                     // Fetch stories by their IDs
+                     // Use Promise.allSettled to handle cases where a story ID might be invalid/deleted
+                     const storyPromises = collection.storyIds.map(id => getStoryById(id).catch(e => { console.warn(`Failed to fetch story ID ${id}:`, e); return null; }));
+                     const results = await Promise.allSettled(storyPromises);
+
+                     const existingStories = results
+                         .filter(result => result.status === 'fulfilled' && result.value !== null)
+                         .map(result => result.value);
+
+                     if (existingStories.length === 0) {
+                          detailStoriesList.innerHTML = '<p>No stories found in this collection (or failed to load).</p>';
+                     } else {
+                         existingStories.forEach(story => {
+                             // Render story item without click handler to avoid nested detail views
+                             const storyItem = renderStoryItem(story, { noClick: true });
+                             // Add a specific click handler to view the story detail
+                             storyItem.addEventListener('click', () => showStoryDetail(story.id));
+
+                             // Add a remove button
+                             const removeButton = document.createElement('button');
+                             removeButton.textContent = 'Remove from Collection';
+                             removeButton.addEventListener('click', async (e) => {
+                                 e.stopPropagation(); // Prevent story item click
+                                 if (confirm(`Remove "${story.title || 'this story'}" from "${collection.name}"?`)) {
+                                     try {
+                                         await removeStoryFromCollection(collection.id, story.id);
+                                         showCollectionDetail(collection.id); // Refresh collection detail view
+                                     } catch (error) {
+                                         console.error('Error removing story from collection:', error);
+                                         alert('Failed to remove story from collection.');
+                                     }
+                                 }
+                             });
+                             storyItem.appendChild(removeButton);
+
+                             detailStoriesList.appendChild(storyItem);
+                         });
+                     }
+                 }
+
+                 collectionsListContainer.classList.add('hidden');
+                 detailView.classList.remove('hidden');
+                 showSection('collections-section'); // Stay on the collections section, just change the sub-view
+
+             } catch (error) {
+                 console.error('Error fetching collection details:', error);
+                 detailView.innerHTML = '<p class="message error">Error loading collection details.</p>';
+                 collectionsListContainer.classList.remove('hidden');
+                 detailView.classList.add('hidden');
+             }
+         };
+
+        const displayStoryOfTheDay = async () => {
+             const storyOfTheDayContent = document.getElementById('story-of-the-day-content');
+             storyOfTheDayContent.innerHTML = '<p>Loading story...</p>';
+
+             try {
+                 const lastStoryState = await getAppState('storyOfTheDay');
+                 const today = new Date().toDateString();
+                 let story = null;
+
+                 if (lastStoryState && lastStoryState.date === today && lastStoryState.storyId) {
+                     // Same day, try to load the previous story
+                     story = await getStoryById(lastStoryState.storyId);
+                 }
+
+                 const allStories = await getAllStories();
+
+                 if (!story) {
+                     // Need a new story (either new day or previous story not found)
+                     if (allStories.length === 0) {
+                         storyOfTheDayContent.innerHTML = '<p>No stories available yet. Add some stories to see the Story of the Day.</p>';
+                         return;
+                     }
+
+                     // Pick a random story
+                     let potentialStories = allStories;
+                     // Optional: Avoid showing the *exact* same story twice in a row if possible
+                     if (allStories.length > 1 && lastStoryState && lastStoryState.storyId) {
+                          const filteredStories = allStories.filter(s => s.id !== lastStoryState.storyId);
+                          if (filteredStories.length > 0) {
+                               potentialStories = filteredStories;
+                          }
+                     }
+                     story = potentialStories[Math.floor(Math.random() * potentialStories.length)];
+
+                     // Save the new story of the day state
+                     await setAppState('storyOfTheDay', { date: today, storyId: story.id });
+                 }
+
+                 if (!story) {
+                      storyOfTheDayContent.innerHTML = '<p class="message error">Could not load Story of the Day.</p>';
+                      return;
+                 }
+
+
+                 // Display the story
+                 const snippetLength = 300;
+                 const storyText = story.storyText || '';
+                 const displayStoryText = storyText.length > snippetLength ?
+                                          storyText.substring(0, snippetLength) + '...' :
+                                          storyText;
+
+                 storyOfTheDayContent.innerHTML = `
+                     <h3>${escapeHTML(story.title || 'Untitled Story')}</h3>
+                     <p><strong>Figures:</strong> ${escapeHTML(story.figures ? story.figures.join(', ') : 'N/A')}</p>
+                     <p><strong>Source:</strong> ${escapeHTML(story.source || 'N/A')}</p>
+                     <p><strong>Tags:</strong> ${escapeHTML(story.tags ? story.tags.join(', ') : 'None')}</p>
+                     <p>${escapeHTML(displayStoryText)}</p>
+                     ${storyText.length > snippetLength ? `<button data-story-id="${story.id}" class="read-more-sotd-button">Read Full Story</button>` : ''}
+                 `;
+                 const readMoreButton = storyOfTheDayContent.querySelector('.read-more-sotd-button');
+                 if (readMoreButton) {
+                     readMoreButton.addEventListener('click', (e) => {
+                          const storyId = parseInt(e.target.dataset.storyId, 10);
+                          if (!isNaN(storyId)) {
+                               showStoryDetail(storyId);
+                          }
+                     });
+                 }
+
+
+             } catch (error) {
+                 console.error('Error displaying Story of the Day:', error);
+                 storyOfTheDayContent.innerHTML = '<p class="message error">Error loading Story of the Day.</p>';
+             }
+        };
+
+
+        // --- Form Handling ---
+
+        const getStoryFormData = () => {
+            const id = document.getElementById('story-id').value;
+            const title = document.getElementById('story-title').value.trim();
+            const figures = document.getElementById('story-figures').value.split(',').map(f => f.trim()).filter(f => f);
+            const storyText = document.getElementById('story-text').value.trim();
+            const source = document.getElementById('story-source').value.trim();
+            const lessons = document.getElementById('story-lessons').value.trim();
+            const tags = Array.from(document.querySelectorAll('#story-tags-list .tag span:first-child')).map(span => span.textContent);
+
+            return {
+                id: id ? parseInt(id, 10) : null,
+                title,
+                figures,
+                storyText,
+                source,
+                lessons,
+                tags
+            };
+        };
+
+        const setStoryFormData = (story) => {
+            document.getElementById('story-id').value = story.id || '';
+            document.getElementById('story-title').value = story.title || '';
+            document.getElementById('story-figures').value = story.figures ? story.figures.join(', ') : '';
+            document.getElementById('story-text').value = story.storyText || '';
+            document.getElementById('story-source').value = story.source || '';
+            document.getElementById('story-lessons').value = story.lessons || '';
+
+            const tagsListDiv = document.getElementById('story-tags-list');
+            tagsListDiv.innerHTML = ''; // Clear existing tags
+            if (story.tags) {
+                story.tags.forEach(tag => addTagToForm(tag, tagsListDiv));
+            }
+
+            document.getElementById('add-story-section').querySelector('button[type="submit"]').textContent = story.id ? 'Update Story' : 'Save Story';
+            document.getElementById('cancel-edit-button').classList.toggle('hidden', !story.id);
+        };
+
+        const resetStoryForm = () => {
+             document.getElementById('add-story-form').reset();
+             document.getElementById('story-id').value = '';
+             document.getElementById('story-tags-list').innerHTML = ''; // Clear tags
+             document.getElementById('add-story-section').querySelector('button[type="submit"]').textContent = 'Save Story';
+             document.getElementById('cancel-edit-button').classList.add('hidden');
+        };
+
+        const editStory = async (storyId) => {
+             try {
+                 const story = await getStoryById(storyId);
+                 if (story) {
+                     setStoryFormData(story);
+                     showSection('add-story-section'); // Switch to the add/edit form section
+                 } else {
+                     alert('Story not found for editing.');
+                 }
+             } catch (error) {
+                 console.error('Error fetching story for edit:', error);
+                 alert('Failed to load story for editing.');
+             }
+        };
+
+        const addTagToForm = (tagName, tagsListDiv) => {
+             if (!tagName || tagName.trim() === '') return;
+             const tag = tagName.trim().toLowerCase();
+             // Prevent duplicates
+             if (Array.from(tagsListDiv.querySelectorAll('.tag span:first-child')).some(span => span.textContent === tag)) {
+                 return;
+             }
+
+             const tagSpan = document.createElement('span');
+             tagSpan.classList.add('tag');
+             tagSpan.innerHTML = `
+                 <span>${escapeHTML(tag)}</span>
+                 <span class="remove-tag">×</span>
+             `;
+             tagSpan.querySelector('.remove-tag').addEventListener('click', () => {
+                 tagSpan.remove();
+             });
+             tagsListDiv.appendChild(tagSpan);
+
+             // Add tag to master list (async, won't block UI)
+             addTag(tag).catch(console.error);
+        };
+
+
+        // --- Event Listeners ---
+
+        // Navigation
+        document.querySelectorAll('nav button').forEach(button => {
+            button.addEventListener('click', () => {
+                showSection(button.dataset.section);
+            });
+        });
+
+        // Add/Edit Story Form Submission
+        document.getElementById('add-story-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const storyData = getStoryFormData();
+
+            if (!storyData.title || !storyData.storyText) {
+                 alert('Title and Story Text are required.');
+                 return;
+            }
+
+            try {
+                if (storyData.id) {
+                    // Update existing story
+                    await updateStory(storyData);
+                    alert('Story updated successfully!');
+                } else {
+                    // Add new story
+                    await addStory(storyData);
+                    alert('Story added successfully!');
+                }
+                resetStoryForm();
+                showSection('view-stories-section'); // Go back to list after saving
+            } catch (error) {
+                console.error('Error saving story:', error);
+                alert('Failed to save story. ' + error.message);
+            }
+        });
+
+        // Cancel Edit Button
+        document.getElementById('cancel-edit-button').addEventListener('click', () => {
+             resetStoryForm();
+             showSection('view-stories-section'); // Go back to list
+        });
+
+
+        // Tag Input Handling
+        document.getElementById('story-tags-input').addEventListener('keypress', (event) => {
+            if (event.key === 'Enter' || event.key === ',') {
+                event.preventDefault(); // Prevent form submission or comma in input
+                const input = event.target;
+                const tagName = input.value.trim();
+                if (tagName) {
+                    addTagToForm(tagName, document.getElementById('story-tags-list'));
+                    input.value = ''; // Clear input after adding
+                }
+            }
+        });
+
+         // Add Note Form Submission
+         document.getElementById('save-note-button').addEventListener('click', async () => {
+             const noteTextarea = document.getElementById('new-note-text');
+             const noteText = noteTextarea.value;
+             if (!currentStoryId) return; // Should not happen if form is visible
+
+             try {
+                 await addNote(currentStoryId, noteText);
+                 noteTextarea.value = ''; // Clear textarea
+                 displayNotesForStory(currentStoryId); // Refresh notes list
+             } catch (error) {
+                 console.error('Error saving note:', error);
+                 alert('Failed to save note. ' + error.message);
+             }
+         });
+
+
+        // Search Functionality (real-time filtering)
+        document.getElementById('search-input').addEventListener('input', async (event) => {
+            const searchTerm = event.target.value.toLowerCase().trim();
+            const searchResultsDiv = document.getElementById('search-results');
+            searchResultsDiv.innerHTML = ''; // Clear previous results
+
+            if (searchTerm.length < 2) { // Don't search for very short terms
+                 searchResultsDiv.innerHTML = '<p>Enter at least 2 characters to search.</p>';
+                 return;
+            }
+
+            try {
+                const allStories = await getAllStories();
+                const filteredStories = allStories.filter(story => {
+                    const searchFields = [
+                        story.title,
+                        story.figures ? story.figures.join(' ') : '',
+                        story.storyText,
+                        story.source,
+                        story.lessons,
+                        story.tags ? story.tags.join(' ') : ''
+                    ].map(field => (field || '').toLowerCase());
+
+                    return searchFields.some(field => field.includes(searchTerm));
+                });
+
+                if (filteredStories.length === 0) {
+                    searchResultsDiv.innerHTML = '<p>No stories found matching your search.</p>';
+                } else {
+                    filteredStories.forEach(story => {
+                        searchResultsDiv.appendChild(renderStoryItem(story));
+                    });
+                }
+
+            } catch (error) {
+                 console.error('Error during search:', error);
+                 searchResultsDiv.innerHTML = '<p class="message error">Error performing search.</p>';
+            }
+        });
+
+        // Create Collection Form Submission
+        document.getElementById('save-collection-button').addEventListener('click', async () => {
+            const nameInput = document.getElementById('new-collection-name');
+            const collectionName = nameInput.value.trim();
+
+            if (!collectionName) {
+                 alert('Collection name cannot be empty.');
+                 return;
+            }
+
+            try {
+                await addCollection(collectionName);
+                alert(`Collection "${collectionName}" created successfully!`);
+                nameInput.value = ''; // Clear input
+                displayCollectionsList(); // Refresh list
+            } catch (error) {
+                console.error('Error creating collection:', error);
+                alert('Failed to create collection. ' + error.message);
+            }
+        });
+
+        // Add to Collection Dialog (Simple Prompt for now)
+        const showAddToCollectionDialog = async (storyId) => {
+             try {
+                 const collections = await getAllCollections();
+                 if (collections.length === 0) {
+                     alert('No collections available. Create a collection first in the "Collections" section.');
+                     return;
+                 }
+
+                 const collectionNames = collections.map(col => col.name);
+                 const selectedName = prompt(`Add this story to which collection?\nAvailable: ${collectionNames.join(', ')}\n(Type the exact collection name)`);
+
+                 if (selectedName) {
+                     const selectedCollection = collections.find(col => col.name.toLowerCase() === selectedName.trim().toLowerCase());
+                     if (selectedCollection) {
+                         if (selectedCollection.storyIds.includes(storyId)) {
+                             alert('Story is already in this collection.');
+                         } else {
+                             await addStoryToCollection(selectedCollection.id, storyId);
+                             alert(`Story added to "${selectedCollection.name}".`);
+                         }
+                     } else {
+                         alert(`Collection "${selectedName}" not found.`);
+                     }
+                 }
+
+             } catch (error) {
+                 console.error('Error adding story to collection:', error);
+                 alert('Failed to add story to collection.');
+             }
+        };
+
+
+        // --- Backup and Restore ---
+        const backupData = async () => {
+            try {
+                const storesToBackup = ['stories', 'tags', 'collections', 'notes', 'appState'];
+                const backupData = {};
+
+                for (const storeName of storesToBackup) {
+                    backupData[storeName] = await new Promise((resolve, reject) => {
+                        try {
+                            const store = getObjectStore(storeName, 'readonly');
+                            const request = store.getAll();
+                            request.onsuccess = () => resolve(request.result);
+                            request.onerror = (event) => reject(event.target.error);
+                        } catch (e) {
+                            reject(e);
+                        }
+                    });
+                }
+
+                const backup = {
+                    version: DB_VERSION,
+                    timestamp: new Date().toISOString(),
+                    data: backupData
+                };
+
+                const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `salaf_stories_backup_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showMessage('Backup successful! File downloaded.', 'success');
+
+            } catch (error) {
+                console.error('Backup failed:', error);
+                showMessage('Backup failed: ' + error.message, 'error');
+            }
+        };
+
+        const restoreData = async (file) => {
+             showMessage('Restoring data... Please wait. Do not close the tab.', ''); // Clear previous messages
+
+            const reader = new FileReader();
+            reader.onload = async (event) => {
+                try {
+                    const backup = JSON.parse(event.target.result);
+
+                    if (!backup || !backup.data || !backup.data.stories || !backup.data.tags || !backup.data.collections || !backup.data.notes || !backup.data.appState) {
+                        throw new Error("Invalid backup file format.");
+                    }
+
+                    // Optional: Check backup version compatibility
+                    // if (backup.version > DB_VERSION) {
+                    //     console.warn(`Backup file is from a newer version (${backup.version}) than the app (${DB_VERSION}). Restoring might cause issues.`);
+                    //     // Could add a user prompt here
+                    // }
+
+                    // Clear existing data in all stores
+                    const storesToClear = ['stories', 'tags', 'collections', 'notes', 'appState'];
+                    for (const storeName of storesToClear) {
+                         await clearObjectStore(storeName);
+                    }
+
+                    // Restore data - Need to handle auto-increment IDs and relationships
+                    const oldIdToNewIdMap = { stories: {}, collections: {}, notes: {} }; // Maps old ID to new ID
+
+                    // 1. Restore Tags (uses name as key, no autoIncrement)
+                    const tagsData = backup.data.tags || [];
+                    const tagStore = getObjectStore('tags', 'readwrite');
+                    for (const tag of tagsData) {
+                         await new Promise((res, rej) => {
+                              const request = tagStore.put(tag); // Use put for keyPath 'name'
+                              request.onsuccess = res;
+                              request.onerror = rej;
+                         });
+                    }
+
+                    // 2. Restore Stories (autoIncrement) and build ID map
+                    const storiesData = backup.data.stories || [];
+                    const storyStore = getObjectStore('stories', 'readwrite');
+                    for (const story of storiesData) {
+                        const oldId = story.id;
+                        delete story.id; // Remove old ID so add generates a new one
+                        // Ensure tags array is strings
+                        if (story.tags && !Array.isArray(story.tags)) story.tags = [];
+                        if (story.tags) story.tags = story.tags.map(String);
+
+                        await new Promise((res, rej) => {
+                            const addRequest = storyStore.add(story);
+                            addRequest.onsuccess = () => {
+                                oldIdToNewIdMap.stories[oldId] = addRequest.result;
+                                res();
+                            };
+                            addRequest.onerror = rej;
+                        });
+                    }
+
+                    // 3. Restore Collections (autoIncrement) and update storyIds using the map
+                    const collectionsData = backup.data.collections || [];
+                    const collectionStore = getObjectStore('collections', 'readwrite');
+                    for (const collection of collectionsData) {
+                        const oldId = collection.id;
+                        delete collection.id; // Remove old ID
+                        // Update storyIds using the map, filter out any IDs that didn't restore
+                        if (collection.storyIds && Array.isArray(collection.storyIds)) {
+                            collection.storyIds = collection.storyIds
+                                .map(oldStoryId => oldIdToNewIdMap.stories[oldStoryId])
+                                .filter(newStoryId => newStoryId !== undefined);
+                        } else {
+                            collection.storyIds = [];
+                        }
+
+                        await new Promise((res, rej) => {
+                            const addRequest = collectionStore.add(collection);
+                            addRequest.onsuccess = () => {
+                                oldIdToNewIdMap.collections[oldId] = addRequest.result; // Map collection IDs too if needed elsewhere
+                                res();
+                            };
+                            addRequest.onerror = rej;
+                        });
+                    }
+
+                    // 4. Restore Notes (autoIncrement) and update storyId using the map
+                    const notesData = backup.data.notes || [];
+                    const noteStore = getObjectStore('notes', 'readwrite');
+                    for (const note of notesData) {
+                        delete note.id; // Remove old ID
+                        // Update storyId using the map
+                        note.storyId = oldIdToNewIdMap.stories[note.storyId];
+
+                        if (note.storyId !== undefined) { // Only add note if the linked story was restored
+                            await new Promise((res, rej) => {
+                                const addRequest = noteStore.add(note);
+                                addRequest.onsuccess = res;
+                                addRequest.onerror = rej;
+                            });
+                        }
+                    }
+
+                    // 5. Restore App State (uses key as keyPath, no autoIncrement)
+                    const appStateData = backup.data.appState || [];
+                    const appStateStore = getObjectStore('appState', 'readwrite');
+                    for (const stateItem of appStateData) {
+                         await new Promise((res, rej) => {
+                              const request = appStateStore.put(stateItem); // Use put for keyPath 'key'
+                              request.onsuccess = res;
+                              request.onerror = rej;
+                         });
+                    }
+
+
+                    showMessage('Restore successful! Data loaded.', 'success');
+                    // Refresh the view
+                    showSection('view-stories-section'); // Or story of the day?
+
+                } catch (error) {
+                     console.error('Restore failed during data import:', error);
+                     showMessage('Restore failed: ' + error.message, 'error');
+                }
+            };
+
+            reader.onerror = (event) => {
+                console.error('File reading error:', event.target.error);
+                showMessage('Error reading file.', 'error');
+            };
+
+            reader.readAsText(file);
+        };
+
+        const clearObjectStore = (storeName) => {
+             return new Promise((resolve, reject) => {
+                 try {
+                     const store = getObjectStore(storeName, 'readwrite');
+                     const request = store.clear();
+                     request.onsuccess = () => resolve();
+                     request.onerror = (event) => reject(event.target.error);
+                 } catch (e) {
+                    reject(e);
+                 }
+             });
+        };
+
+
+        document.getElementById('backup-button').addEventListener('click', backupData);
+
+        document.getElementById('restore-button').addEventListener('click', () => {
+            const fileInput = document.getElementById('restore-file');
+            const file = fileInput.files[0];
+            if (file) {
+                if (confirm('Restoring will overwrite ALL existing data in the archive. This action cannot be undone. Are you absolutely sure?')) {
+                    restoreData(file);
+                }
+            } else {
+                alert('Please select a backup file.');
+            }
+        });
+
+
+        // --- Utility Functions ---
+        function escapeHTML(str) {
+            if (typeof str !== 'string') return str;
+            const div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+
+         function showMessage(msg, type) {
+             const msgDiv = document.getElementById('backup-restore-message');
+             msgDiv.textContent = msg;
+             msgDiv.className = `message ${type}`; // success, error, or empty for neutral
+             msgDiv.classList.remove('hidden');
+             // Keep messages for restore visible until new action, hide others
+             if (type !== '' && currentSection !== 'backup-restore-section') {
+                  setTimeout(() => {
+                       msgDiv.classList.add('hidden');
+                  }, 5000);
+             }
+         }
+
+
+        // --- Initialization ---
+        const init = async () => {
+            try {
+                await openDB();
+                console.log('App initialized.');
+                // Show the default section
+                showSection('story-of-the-day-section');
+            } catch (error) {
+                console.error('Failed to initialize app:', error);
+                // Display a prominent error message if DB fails
+                document.body.innerHTML = `
+                    <div style="padding: 20px; text-align: center; font-family: var(--font-sans-serif);">
+                        <h1>Salaf Stories Archive</h1>
+                        <p class="message error">Failed to load the application.</p>
+                        <p>Error: ${escapeHTML(error.message || 'Database initialization failed.')}</p>
+                        <p>Please ensure your browser supports IndexedDB and try refreshing the page.</p>
+                        <footer>
+                            <p>© 2023 Salaf Stories Archive. Curated by Yasin Ullah, Pakistani.</p>
+                        </footer>
+                    </div>
+                `;
+            }
+        };
+
+        // Start the app
+        init();
+
+
+        
+    const sampleStories = [
+        {
+            title: "The Piety of Umar ibn al-Khattab (RA)",
+            figures: ["Umar ibn al-Khattab"],
+            storyText: "One night, Umar (RA) was patrolling the city when he heard a woman complaining to her daughter about mixing water with milk to sell it. The daughter refused, saying the Amir al-Mu'minin had forbidden it. The mother argued that Umar couldn't see them. The daughter replied, 'If Umar cannot see us, the Lord of Umar surely can!' Umar was so impressed he married the daughter to his son, Asim, from whom the lineage of the righteous Caliph Umar ibn Abdul Aziz descended.",
+            source: "Various historical accounts, including Siyar A'lam al-Nubala'",
+            lessons: "1. The importance of fearing Allah even when alone.\n2. The reward for steadfastness in piety.\n3. The blessings that come from righteous lineage.",
+            tags: ["Piety", "Taqwa", "Umar ibn al-Khattab", "Family", "Honesty"]
+        },
+        {
+            title: "Imam Abu Hanifa's Humility",
+            figures: ["Abu Hanifa"],
+            storyText: "A man once came to Imam Abu Hanifa and asked him a question. After the Imam answered, the man said, 'I heard that you are the one who uses his opinion in religion.' Imam Abu Hanifa replied, 'We only use opinion when there is no text from the Book of Allah or the Sunnah of His Messenger (peace be upon him).'",
+            source: "Tarikh Baghdad by Al-Khatib al-Baghdadi",
+            lessons: "1. The humility of the great scholars.\n2. The methodology of deriving rulings in Islam (Qur'an, Sunnah, then Ijtihad).",
+            tags: ["Ilm", "Scholars", "Humility", "Fiqh", "Abu Hanifa"]
+        },
+        {
+            title: "The Patience of Imam Ahmad",
+            figures: ["Ahmad ibn Hanbal"],
+            storyText: "During the Mihna (Inquisition), Imam Ahmad was severely tortured for refusing to affirm the Mu'tazili doctrine that the Qur'an was created. Despite the immense pain and pressure from the authorities, he remained steadfast, repeating, 'The Qur'an is the Speech of Allah, uncreated.' His patience and firmness in faith became a legendary example for Muslims.",
+            source: "Manaqib Ahmad by Ibn al-Jawzi",
+            lessons: "1. The importance of standing firm on the truth.\n2. The virtue of patience in the face of persecution.\n3. The status of the Qur'an as the uncreated Speech of Allah.",
+            tags: ["Patience", "Steadfastness", "Ahmad ibn Hanbal", "Aqidah", "Mihna"]
+        },
+        {
+            title: "The Generosity of Abdullah ibn Mubarak",
+            figures: ["Abdullah ibn Mubarak"],
+            storyText: "Abdullah ibn Mubarak was known for his immense generosity. It is said that he would spend vast amounts on charity and helping others. Once, when asked about his spending, he recited the verse (9:111) about Allah purchasing the lives and wealth of the believers in exchange for Paradise, indicating that his spending was a form of trade with Allah.",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The virtue of generosity and charity.\n2. Viewing spending in the path of Allah as a profitable trade.\n3. The example of early Muslims in prioritizing the Hereafter.",
+            tags: ["Generosity", "Charity", "Zuhd", "Abdullah ibn Mubarak"]
+        },
+        {
+            title: "The Fear of Allah of Hasan al-Basri",
+            figures: ["Hasan al-Basri"],
+            storyText: "Hasan al-Basri was often seen weeping or looking melancholic. When asked why, he said, 'I do not know if when Allah looks at me, He sees something He dislikes, and then He will say, 'Go, for I am not pleased with you.'' His intense fear of Allah stemmed from his deep awareness of his own shortcomings and the gravity of accountability on the Day of Judgment.",
+            source: "Hilyat al-Awliya' by Abu Nu'aym al-Isfahani",
+            lessons: "1. The importance of fearing Allah (Khawf).\n2. Self-accountability and awareness of one's sins.\n3. The state of the true believer between hope and fear.",
+            tags: ["Taqwa", "Khawf", "Hasan al-Basri", "Self-Reflection"]
+        },
+        {
+            title: "The Justice of Umar ibn Abdul Aziz",
+            figures: ["Umar ibn Abdul Aziz"],
+            storyText: "When Umar ibn Abdul Aziz became Caliph, he immediately began reforming the state, returning unlawfully acquired wealth to the treasury and the people. He lived a simple, ascetic life, refusing the luxuries of his predecessors. His reign, though short, is remembered as a golden era of justice and piety.",
+            source: "Tarikh al-Rusul wa al-Muluk by Al-Tabari",
+            lessons: "1. The importance of justice in leadership.\n2. The virtue of Zuhd (asceticism) for rulers.\n3. The impact of righteous leadership on society.",
+            tags: ["Justice", "Leadership", "Zuhd", "Umar ibn Abdul Aziz"]
+        },
+        {
+            title: "Sufyan al-Thawri's Abstinence from Worldly Matters",
+            figures: ["Sufyan al-Thawri"],
+            storyText: "Sufyan al-Thawri, a great scholar and ascetic, would often flee from positions of authority or worldly entanglements, fearing they would corrupt his faith. He preferred a life of devotion and teaching, warning against the dangers of seeking fame or wealth through knowledge.",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The dangers of worldly desires for the person of knowledge.\n2. The importance of sincerity in seeking knowledge.\n3. Prioritizing the Hereafter over worldly gain.",
+            tags: ["Zuhd", "Ilm", "Sufyan al-Thawri", "Sincerity"]
+        },
+        {
+            title: "The Mother of Imam Malik's Encouragement",
+            figures: ["Malik ibn Anas", "Mother of Imam Malik"],
+            storyText: "When Malik ibn Anas was young, he wanted to pursue knowledge. His mother dressed him in fine clothes and a turban and told him, 'Go to the teacher Rabi'ah. Learn from his manners before you learn from his knowledge.' This instilled in him the importance of Adab (manners) alongside Ilm (knowledge).",
+            source: "Tartib al-Madarik by Al-Qadi Iyad",
+            lessons: "1. The importance of seeking knowledge.\n2. The crucial role of manners (Adab) in seeking knowledge.\n3. The encouragement of parents in seeking knowledge.",
+            tags: ["Ilm", "Adab", "Malik ibn Anas", "Parents"]
+        },
+        {
+            title: "The Humility of Al-Fudayl ibn Iyad",
+            figures: ["Al-Fudayl ibn Iyad"],
+            storyText: "Al-Fudayl ibn Iyad was a famous bandit who repented and became a renowned ascetic and scholar. His repentance was triggered when he overheard a verse of the Qur'an. After his repentance, he was known for his deep humility and fear of Allah, often saying, 'If it was said to me on the Day of Judgment, 'Enter Paradise,' I would not enter until I knew who else was entering with me.'",
+            source: "Hilyat al-Awliya'",
+            lessons: "1. The power of sincere repentance.\n2. The transformation possible through guidance.\n3. The humility of the righteous.",
+            tags: ["Repentance", "Zuhd", "Humility", "Al-Fudayl ibn Iyad"]
+        },
+        {
+            title: "The Courage of Said ibn Jubayr",
+            figures: ["Said ibn Jubayr", "Al-Hajjaj ibn Yusuf"],
+            storyText: "Said ibn Jubayr, a student of Ibn Abbas, was known for his knowledge and piety. He was brought before the tyrannical governor Al-Hajjaj, who challenged him with questions. Said answered fearlessly, upholding the truth. Hajjaj, enraged by his defiance and truthfulness, ordered his execution. Said ibn Jubayr met his death with immense courage and trust in Allah.",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The courage to speak truth to power.\n2. Steadfastness in faith even unto death.\n3. The example of scholars in facing tyranny.",
+            tags: ["Courage", "Steadfastness", "Ilm", "Said ibn Jubayr", "Martyrdom"]
+        },
+        {
+            title: "The Generosity of Hatim al-Asamm",
+            figures: ["Hatim al-Asamm"],
+            storyText: "Hatim al-Asamm (meaning 'the deaf one', though he was not actually deaf, but appeared so to avoid hearing gossip) was known for his complete reliance on Allah (Tawakkul) and his generosity. A story is told of him taking his family on Hajj with very little provision, relying solely on Allah, and they were provided for in miraculous ways.",
+            source: "Risalat al-Qushayriyya",
+            lessons: "1. The virtue of Tawakkul (reliance on Allah).\n2. The blessings that come with sincere reliance.\n3. The importance of avoiding gossip.",
+            tags: ["Tawakkul", "Generosity", "Zuhd", "Hatim al-Asamm"]
+        },
+        {
+            title: "The Pursuit of Knowledge by Jabir ibn Abdullah",
+            figures: ["Jabir ibn Abdullah"],
+            storyText: "Jabir ibn Abdullah, a companion of the Prophet (peace be upon him), travelled for a month to Syria just to verify a single Hadith from another companion who had heard it directly from the Prophet (peace be upon him). This shows the immense effort the early Muslims put into preserving and verifying the Sunnah.",
+            source: "Sahih Bukhari",
+            lessons: "1. The dedication required in seeking knowledge.\n2. The importance of verifying Hadith.\n3. The value placed on the Sunnah by the Sahabah.",
+            tags: ["Ilm", "Hadith", "Sahabah", "Dedication", "Jabir ibn Abdullah"]
+        },
+        {
+            title: "The Simplicity of Abu Dharr al-Ghifari",
+            figures: ["Abu Dharr al-Ghifari"],
+            storyText: "Abu Dharr (RA) was known for his extreme asceticism and rejection of wealth accumulation. He lived a life of poverty by choice, giving away anything beyond basic necessities. He often debated with those who hoarded wealth, reminding them of the stern warnings in the Qur'an against it.",
+            source: "Various Hadith collections and historical accounts",
+            lessons: "1. The virtue of Zuhd (asceticism).\n2. The dangers of excessive wealth accumulation.\n3. Prioritizing the Hereafter over worldly possessions.",
+            tags: ["Zuhd", "Poverty", "Wealth", "Sahabah", "Abu Dharr al-Ghifari"]
+        },
+        {
+            title: "The Wisdom of Luqman (as mentioned in the Qur'an)",
+            figures: ["Luqman"],
+            storyText: "Although not strictly from the Salaf period, the wisdom of Luqman, mentioned in the Qur'an (Surah Luqman), serves as a timeless example for Muslims. His advice to his son covers topics like avoiding Shirk, honoring parents, being mindful of Allah's knowledge, establishing prayer, enjoining good and forbidding evil, patience, humility, and moderation in speech and gait.",
+            source: "Qur'an, Surah Luqman",
+            lessons: "1. The importance of Tawhid.\n2. The rights of parents.\n3. The necessity of prayer and Dawah.\n4. The virtues of patience, humility, and moderation.",
+            tags: ["Wisdom", "Adab", "Parents", "Tawhid", "Qur'an", "Luqman"]
+        },
+        {
+            title: "The Repentance of a Young Man witnessed by Abdullah ibn Umar",
+            figures: ["Abdullah ibn Umar"],
+            storyText: "Abdullah ibn Umar (RA) once saw a young man playing and enjoying himself excessively. He told him, 'Young man, if you knew how you will be when you die, you would hate the life you are living.' The young man took this advice to heart, repented sincerely, and became known for his intense worship. Later, when Abdullah ibn Umar saw him, he didn't recognize him due to the change in his appearance from worship and fear of Allah.",
+            source: "Hilyat al-Awliya'",
+            lessons: "1. The effectiveness of sincere advice.\n2. The beauty of repentance.\n3. The transformative power of focusing on the Hereafter.",
+            tags: ["Repentance", "Advice", "Abdullah ibn Umar", "Youth"]
+        },
+         {
+            title: "Imam Shafi'i's Sharp Memory",
+            figures: ["Muhammad ibn Idris al-Shafi'i"],
+            storyText: "Imam Shafi'i complained to his teacher, Wakee', about his poor memory. Wakee' advised him to abandon sins, saying, 'Knowledge is light, and the light of Allah is not given to a sinner.' Imam Shafi'i then composed famous lines of poetry reflecting this advice.",
+            source: "Diwan al-Shafi'i",
+            lessons: "1. The connection between piety and knowledge.\n2. Sins can hinder the acquisition or retention of knowledge.\n3. The importance of seeking righteous teachers.",
+            tags: ["Ilm", "Piety", "Sins", "Shafi'i"]
+        },
+         {
+            title: "The Generosity of Ali ibn Abi Talib (RA)",
+            figures: ["Ali ibn Abi Talib"],
+            storyText: "Ali (RA) and his family (Fatimah, Hasan, and Husayn) fasted for three consecutive days, and each evening, when they were about to break their fast, a needy person would come to their door (a poor person, an orphan, and a captive on consecutive nights). Each time, they gave away their meager meal and broke their fast only on water. Allah revealed verses in Surah Al-Insan (76:8-9) in their praise.",
+            source: "Qur'an (76:8-9) and Tafsir accounts",
+            lessons: "1. The highest level of generosity (Ithar - giving preference to others).\n2. The reward for feeding the poor and needy.\n3. The status of the Ahl al-Bayt.",
+            tags: ["Generosity", "Charity", "Ahl al-Bayt", "Qur'an", "Ali ibn Abi Talib", "Fatimah", "Hasan", "Husayn"]
+        },
+        {
+            title: "The Humility of Aisha (RA)",
+            figures: ["Aisha bint Abi Bakr"],
+            storyText: "Despite being the most knowledgeable woman among the Sahabah and the beloved wife of the Prophet (peace be upon him), Aisha (RA) was known for her humility. She would not hesitate to ask questions to clarify matters of deen and would correct others gently when necessary, always attributing her knowledge to Allah and His Messenger.",
+            source: "Various Hadith collections",
+            lessons: "1. The importance of seeking knowledge regardless of status.\n2. The virtue of humility in knowledge.\n3. The great knowledge of Aisha (RA).",
+            tags: ["Ilm", "Humility", "Sahabah", "Women", "Aisha"]
+        },
+        {
+            title: "The Concern of Abu Bakr al-Siddiq (RA)",
+            figures: ["Abu Bakr al-Siddiq"],
+            storyText: "Abu Bakr (RA) was known for his deep concern for the Ummah and his fear of Allah. It is narrated that he would sometimes say, 'I wish I were a hair on the side of a believer.' This illustrates his profound humility and his desire to be of even the slightest benefit to the Muslims.",
+            source: "Hilyat al-Awliya'",
+            lessons: "1. The humility of the greatest Sahabah.\n2. Concern for fellow Muslims.\n3. Intense fear of accountability.",
+            tags: ["Humility", "Concern", "Sahabah", "Abu Bakr al-Siddiq"]
+        },
+        {
+            title: "The Diligence of Imam Bukhari in Hadith Collection",
+            figures: ["Muhammad ibn Isma'il al-Bukhari"],
+            storyText: "Imam Bukhari travelled extensively across the Islamic world for sixteen years, meeting thousands of scholars and collecting hundreds of thousands of Hadith. He would perform Istikhara (prayer for guidance) before including each Hadith in his Sahih, and it is said he would not include a Hadith until he was certain of its authenticity and had performed Ghusl (ritual bath) and prayed two Rak'ahs.",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The immense effort required in preserving the Sunnah.\n2. The piety and meticulousness of the Hadith masters.\n3. The importance of authenticity in religious knowledge.",
+            tags: ["Ilm", "Hadith", "Diligence", "Bukhari"]
+        },
+         {
+            title: "The Piety of Rabia al-Adawiyya",
+            figures: ["Rabia al-Adawiyya"],
+            storyText: "Rabia al-Adawiyya was a famous female ascetic known for her pure love of Allah. She would say, 'O Allah, if I worship You out of fear of Hellfire, then burn me in it. And if I worship You out of hope for Paradise, then exclude me from it. But if I worship You for Your sake alone, then do not withhold Your eternal grace from me.'",
+            source: "Risalat al-Qushayriyya",
+            lessons: "1. The concept of worshipping Allah out of pure love.\n2. The sincerity of the righteous.\n3. The status of female ascetics.",
+            tags: ["Piety", "Love of Allah", "Zuhd", "Women", "Rabia al-Adawiyya"]
+        },
+        {
+            title: "The Trust of Ibrahim ibn Adham",
+            figures: ["Ibrahim ibn Adham"],
+            storyText: "Ibrahim ibn Adham was a prince who renounced his worldly kingdom to pursue the path of asceticism and devotion. He was known for his deep trust in Allah. Once, someone saw him looking content despite having nothing and asked him about his state. He replied, 'If I knew that my provision for tomorrow was guaranteed, I would not worry about it.'",
+            source: "Hilyat al-Awliya'",
+            lessons: "1. Renouncing the world for the sake of Allah.\n2. The virtue of Tawakkul (reliance on Allah).\n3. Contentment (Qana'ah).",
+            tags: ["Zuhd", "Tawakkul", "Contentment", "Ibrahim ibn Adham"]
+        },
+        {
+            title: "The Patience of Urwah ibn Zubayr",
+            figures: ["Urwah ibn Zubayr"],
+            storyText: "Urwah ibn Zubayr, a prominent Tabi'i, suffered a severe infection in his leg which necessitated amputation. On the same journey, his beloved son fell into a well and died. Despite these immense trials, he remained patient and thankful to Allah, saying, 'O Allah, You have taken one limb and given me three (other limbs), and You have taken one son and left me others. All praise is due to You.'",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The virtue of patience during trials.\n2. Finding reasons to be thankful to Allah even in hardship.\n3. The strength of faith of the Tabi'in.",
+            tags: ["Patience", "Trials", "Gratitude", "Tabi'in", "Urwah ibn Zubayr"]
+        },
+        {
+            title: "The Honesty of a Seller and the Advice of a Scholar",
+            figures: ["Imam Malik", "Seller"],
+            storyText: "A man brought some dates to sell in Madinah. He came to Imam Malik and asked him to examine them, saying he had mixed good dates with bad ones and wanted to know if this was permissible. Imam Malik told him, 'It is not permissible. You must separate them and sell the good separately from the bad, or inform the buyer of the mixture.' The man followed his advice, and Allah blessed his sale.",
+            source: "Al-Muwatta' by Imam Malik (related meaning)",
+            lessons: "1. The importance of honesty in business.\n2. The prohibition of deception.\n3. Seeking knowledge regarding one's livelihood.",
+            tags: ["Honesty", "Business", "Fiqh", "Imam Malik"]
+        },
+        {
+            title: "The Generosity of Imam Abu Yusuf",
+            figures: ["Abu Yusuf"],
+            storyText: "Imam Abu Yusuf, the student of Abu Hanifa and chief judge, was known for his generosity. It is said that he would spend freely on his students and those in need. When criticized for his spending, he would say that the blessings of knowledge and position from Allah should be shared.",
+            source: "Tarikh Baghdad",
+            lessons: "1. The virtue of generosity.\n2. Sharing the blessings Allah has bestowed.\n3. The example of scholars in supporting others.",
+            tags: ["Generosity", "Ilm", "Scholars", "Abu Yusuf"]
+        },
+        {
+            title: "The Fear of Allah of Sufyan ibn Uyaynah",
+            figures: ["Sufyan ibn Uyaynah"],
+            storyText: "Sufyan ibn Uyaynah, a renowned Hadith scholar, was known for his intense fear of Allah. It is reported that he would weep often. When asked about it, he said, 'I am afraid that Allah might have looked at me while I was committing a sin and said, 'Go, I will not forgive you.''",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The importance of Khawf (fear of Allah).\n2. The awareness of one's sins.\n3. The state of the righteous.",
+            tags: ["Taqwa", "Khawf", "Sufyan ibn Uyaynah"]
+        },
+        {
+            title: "The Pursuit of Truth by Imam al-Sha'bi",
+            figures: ["Al-Sha'bi"],
+            storyText: "Al-Sha'bi, a prominent Tabi'i scholar, said, 'I did not leave anything that I did not hear, except that I wished I had heard it.' This shows his insatiable desire for knowledge and truth, seeking it from every available source.",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The dedication to seeking knowledge.\n2. The importance of listening and learning.\n3. The thirst for truth.",
+            tags: ["Ilm", "Tabi'in", "Dedication", "Al-Sha'bi"]
+        },
+        {
+            title: "The Forgiveness of Imam Zayn al-Abidin",
+            figures: ["Ali ibn al-Husayn (Zayn al-Abidin)"],
+            storyText: "Imam Zayn al-Abidin, the grandson of Ali (RA), was known for his piety and forgiveness. It is narrated that a slave girl once accidentally spilled hot water on him. Instead of becoming angry, he recited the verse about those who suppress anger and forgive people (3:134) and then freed her.",
+            source: "Hilyat al-Awliya'",
+            lessons: "1. The virtue of suppressing anger.\n2. The reward for forgiving others.\n3. Following the example of the righteous.",
+            tags: ["Forgiveness", "Anger Management", "Piety", "Ahl al-Bayt", "Zayn al-Abidin"]
+        },
+        {
+            title: "The Humility of Abdullah ibn Mas'ud (RA)",
+            figures: ["Abdullah ibn Mas'ud"],
+            storyText: "Abdullah ibn Mas'ud (RA), a great companion and scholar of the Qur'an, was known for his humility. He once said, 'If I knew that a dog had more knowledge than me about the Book of Allah, I would go to it and learn from it.' This illustrates his intense desire for knowledge and lack of arrogance.",
+            source: "Siyar A'lam al-Nubala'",
+            lessons: "1. The virtue of humility in seeking knowledge.\n2. The importance of valuing knowledge regardless of the source.\n3. The dedication of the Sahabah to the Qur'an.",
+            tags: ["Humility", "Ilm", "Qur'an", "Sahabah", "Abdullah ibn Mas'ud"]
+        },
+        {
+            title: "The Patience of Bilal ibn Rabah (RA)",
+            figures: ["Bilal ibn Rabah", "Umayyah ibn Khalaf"],
+            storyText: "Before Islam, Bilal (RA) was a slave who accepted Islam early on. His master, Umayyah ibn Khalaf, tortured him severely, placing heavy stones on his chest under the scorching sun, demanding he renounce Islam. Bilal's only reply was 'Ahad! Ahad!' (One God! One God!). His patience and steadfastness were immense until Abu Bakr (RA) bought and freed him.",
+            source: "Various historical accounts, including Ibn Ishaq's Sirah",
+            lessons: "1. The virtue of patience under persecution.\n2. Steadfastness in Tawhid.\n3. The strength of faith of the early Muslims.",
+            tags: ["Patience", "Steadfastness", "Tawhid", "Sahabah", "Bilal ibn Rabah"]
+        }
+    ];
+
+    // Function to add sample data if the database is empty
+    const addSampleData = async () => {
+        try {
+            const stories = await getAllStories();
+            if (stories.length < 5) { // Only add samples if there are less than 5 stories
+                console.log('Adding sample stories...');
+                const addPromises = sampleStories.map(story => addStory(story).catch(e => console.error('Failed to add sample story:', e)));
+                await Promise.all(addPromises);
+                console.log('Sample stories added.');
+                // Refresh the view if needed, e.g., if on the view-stories section
+                if (currentSection === 'view-stories-section') {
+                     displayAllStories();
+                } else if (currentSection === 'story-of-the-day-section') {
+                     displayStoryOfTheDay(); // Refresh story of the day in case samples were added
+                }
+            } else {
+                console.log('Database already contains stories, skipping sample data addition.');
+            }
+        } catch (error) {
+            console.error('Error adding sample data:', error);
+        }
+    };
+
+    // Call the function to add sample data after the app initializes
+    // We need to wait for the DB to be open. The `init` function already does this.
+    // We can modify init or add a listener/timeout, but the simplest is to call it
+    // after the async init() call chain finishes.
+    // A better way is to call it inside init() after openDB() resolves.
+    // Let's modify the init function slightly to call this.
+
+    // --- Modified Initialization (Replacing the original init function) ---
+    const originalInit = async () => {
+        try {
+            await openDB();
+            console.log('IndexedDB opened successfully.');
+            await addSampleData(); // Add samples after DB is open
+            console.log('App initialized.');
+            // Show the default section
+            showSection('story-of-the-day-section');
+        } catch (error) {
+            console.error('Failed to initialize app:', error);
+            // Display a prominent error message if DB fails
+            document.body.innerHTML = `
+                <div style="padding: 20px; text-align: center; font-family: var(--font-sans-serif);">
+                    <h1>Salaf Stories Archive</h1>
+                    <p class="message error">Failed to load the application.</p>
+                    <p>Error: ${escapeHTML(error.message || 'Database initialization failed.')}</p>
+                    <p>Please ensure your browser supports IndexedDB and try refreshing the page.</p>
+                    <footer>
+                        <p>© 2023 Salaf Stories Archive. Curated by Yasin Ullah, Pakistani.</p>
+                    </footer>
+                </div>
+            `;
+        }
+    };
+
+    // Start the app with the modified init function
+    originalInit();
+
+    </script>
+</body>
+</html>
